@@ -1,0 +1,65 @@
+.fromPhoto {
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  background: #FFFFFF;
+  box-shadow: 0 5px 40px rgba(0, 0, 0, 0.06);
+
+
+  &__el1 {
+    padding: 20px 20px 20px 70px;
+    display: block;
+    border-radius: 8px;
+    position: relative;
+    cursor: text;
+
+    &::before {
+      position: absolute;
+      height: 50%;
+      top: 50%;
+      background-color: rgba(170, 177, 197, 0.4);
+      width: 2px;
+      transform: rotate(90deg) translateY(-50%);
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 32px;
+    }
+
+    input {
+      width: 340px;
+      font-weight: 500;
+      font-size: 17px;
+      border-right: 2px solid rgba(170, 177, 197, 0.4);
+
+      &::placeholder {
+        color: var(--grey-secondary);
+      }
+    }
+  }
+
+  &__el2 {
+    cursor: pointer;
+    padding: 20px 20px 20px 12px;
+    display: block;
+    border-radius: 8px;
+    position: relative;
+  }
+}
+
+.datePicker {
+  display: flex;
+  align-items: center;
+
+  &__name {
+    font-size: 17px;
+    color: var(--grey-secondary);
+    margin-right: 50px;
+  }
+}

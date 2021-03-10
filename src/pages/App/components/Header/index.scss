@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 70px;
+  min-height: 80px;
+  background: #FFFFFF;
+  box-shadow: 0 3px 24px rgba(0, 0, 0, 0.03);
+
+  &__logo {
+  }
+
+  &__avatar {
+
+  }
+}

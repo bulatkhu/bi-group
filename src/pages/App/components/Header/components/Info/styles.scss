@@ -1,0 +1,48 @@
+.profile-info {
+
+  &__wrap {
+    position: relative;
+  }
+
+  &__name {
+    margin-right: 20px;
+  }
+
+  &__arrow {
+    margin-right: 8px;
+    transition: all .3s ease-out;
+
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__noPhoto, &__avatar {
+    height: 40px;
+    min-height: 40px;
+    width: 40px;
+    min-width: 40px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  &__noPhoto {
+    background-color: #96A0B5;
+    color: #fff;
+    font-size: 11px;
+    padding: 5px;
+  }
+
+  &__avatar {
+    img {
+
+    }
+  }
+
+  &__dropdown {
+    padding: 16px;
+    background: #FFFFFF;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+  }
+}

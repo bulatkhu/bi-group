@@ -1,0 +1,155 @@
+.p-details {
+  background-color: #fff;
+  flex: 1;
+  text-align: center;
+  padding: 50px 70px 40px;
+
+  @media (max-width: 1200px) {
+    padding: 35px 30px 40px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 20px 10px 40px;
+  }
+
+  &__goBack {
+    font-weight: 500;
+    padding: 10px 10px 10px 40px;
+    font-size: 20px;
+    color: #C9C7D9;
+    position: relative;
+  }
+
+  &__arrow {
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    left: 10px;
+    position: absolute;
+
+    path {
+      fill: #C9C7D9;
+    }
+  }
+
+  &__top {
+    min-height: 80px;
+  }
+
+  &__wrapper {
+    max-width: 1624px;
+    margin: auto;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+
+  &__date {
+    color: var(--grey-light);
+    margin-bottom: 32px;
+    font-weight: 500;
+    font-size: 22px;
+  }
+
+  &__btn {
+    margin-bottom: 32px;
+  }
+
+  &__imgWrapper {
+    position: relative;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: auto;
+
+    @media (max-width: 767px) {
+      padding: 0 10px;
+    }
+
+    @media (max-width: 576px) {
+      padding: 0;
+    }
+  }
+  //__next
+
+  &__img {
+    margin: auto;
+    position: relative;
+    max-width: 100%;
+    padding-bottom: 56.3%;
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}
+
+.p-slider {
+
+  &__btn {
+    z-index: 2;
+    padding: 12px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #F2F1F5;
+    border-radius: 8px;
+    @media (max-width: 767px) {
+      padding: 5px;
+    }
+    @media (max-width: 576px) {
+      padding: 1px;
+
+      svg {
+        width: 15px;
+        height: 15px;
+
+      }
+    }
+  }
+
+  &__next {
+    right: -120px;
+
+    @media (max-width: 1500px) {
+      right: -50px;
+    }
+
+    @media (max-width: 1200px) {
+      right: -10px;
+    }
+    @media (max-width: 767px) {
+      right: 0;
+    }
+
+
+    svg {
+      transform: rotate(-90deg);
+    }
+  }
+
+  &__prev {
+    left: -120px;
+    @media (max-width: 1500px) {
+      left: -50px;
+    }
+
+    @media (max-width: 1200px) {
+      left: -10px;
+    }
+    @media (max-width: 767px) {
+      left: 0;
+    }
+
+    svg {
+      transform: rotate(90deg);
+    }
+  }
+}

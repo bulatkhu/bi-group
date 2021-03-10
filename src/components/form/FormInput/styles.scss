@@ -1,0 +1,28 @@
+.formInput {
+  width: 100%;
+  padding: 18px 24px;
+  border: 1.5px solid rgba(13, 40, 134, 0.2);
+  border-radius: 11px;
+  font-weight: 500;
+  font-size: 20px;
+
+  &::placeholder {
+    color: rgba(150, 160, 181, 0.7);
+  }
+
+  &__pass {
+    padding-right: 50px;
+  }
+
+  &__noEye {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
+  }
+
+  &__wrapper {
+    width: 100%;
+  }
+}

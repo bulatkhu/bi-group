@@ -1,0 +1,44 @@
+.photos {
+  margin-top: 80px;
+  background-color: #fff;
+  flex: 1;
+  padding: 0 70px 40px;
+
+  @media (max-width: 1200px) {
+    padding: 0 30px 40px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 0 10px 40px;
+  }
+
+  &__searchPhotos {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.photosMain {
+  text-align: center;
+
+  &__date {
+    color: #96A0B5;
+    margin-bottom: 40px;
+    font-size: 22px;
+  }
+
+  &__title {
+    color: var(--black-main);
+    font-style: normal;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  &__photos {
+    display: grid;
+    grid-column-gap: 24px;
+    grid-row-gap: 42px;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, max(420px));
+  }
+}

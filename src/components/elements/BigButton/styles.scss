@@ -1,0 +1,20 @@
+.bigBtn {
+  background: #155A9E;
+  border-radius: 8px;
+  padding: 12px 32px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+
+  &.light {
+    background: rgba(219, 236, 248, 0.3);
+    color: var(--black-main);
+    &:hover {
+      background: rgba(219, 236, 248, 0.4);
+    }
+  }
+
+  &:hover {
+    background: #124f8c;
+  }
+}
