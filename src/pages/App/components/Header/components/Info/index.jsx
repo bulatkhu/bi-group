@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { view } from '@risingstack/react-easy-state'
+import { useHistory } from 'react-router-dom'
 import AnimatedDropdownArrow from '../../../../../../components/elements/AnimatedDropdownArrow'
 import auth from '../../../../../../store/modules/auth'
+import BigButton from '../../../../../../components/elements/BigButton'
 import './styles.scss'
 
 const Info = view(() => {
+  const history = useHistory()
   const [open, setOpen] = useState(false)
 
   return (
@@ -25,7 +28,31 @@ const Info = view(() => {
         }
       </span>
       </button>
-      <div className={['profile-info__dropdown p-i__dropdown', open ? 'active' : null].join(' ')}>
+      <div className={['profile-info__dropdown p-d', open ? 'active' : null].join(' ')}>
+
+        <div className="p-d__wrapper">
+          <div className="p-d__group">
+            <p className="p-d__label">ФИО</p>
+            <p className="p-d__info">{auth.user?.name}</p>
+          </div>
+
+          <div className="p-d__group">
+            <p className="p-d__label">Должность</p>
+            <p className="p-d__info">CX/UI/UX researcher </p>
+          </div>
+
+          <div className="p-d__group">
+            <p className="p-d__label">День рождения</p>
+            <p className="p-d__info">13 September 2000</p>
+          </div>
+
+          <BigButton
+            onClick={() => {
+              auth.logout()
+              history.push('/auth')
+            }}
+            style={{padding: '6px 10px', fontWeight: 600, fontSize: 18, width: '100%'}}
+          >Выйти</BigButton></div>
 
       </div>
     </div>

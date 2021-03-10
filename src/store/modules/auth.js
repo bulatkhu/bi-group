@@ -1,5 +1,6 @@
 import { store } from '@risingstack/react-easy-state'
 import { fakeApi } from '../api'
+import catalogue from './catalogue'
 
 const mokeUser = {
   name: 'Bulat',
@@ -11,7 +12,7 @@ const auth = store({
   loaded: false,
   isAuth: false,
 
-  clearAuth() {
+  clearModule() {
     auth.user = {}
     auth.loaded = false
     auth.isAuth = false
@@ -23,6 +24,12 @@ const auth = store({
       auth.isAuth = true
       await this.fetchUser();
     }
+  },
+
+  logout() {
+    sessionStorage.removeItem('token')
+    this.clearModule()
+    catalogue.clearModule()
   },
 
   async fetchUser() {

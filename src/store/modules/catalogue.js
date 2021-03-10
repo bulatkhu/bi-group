@@ -16,6 +16,11 @@ const catalogues = store({
   photos: [],
   loaded: false,
 
+  clearModule() {
+    catalogues.photos = []
+    catalogues.loaded = false
+  },
+
   async getCatalogById(id) {
     if (catalogues.photos.length) {
       return catalogues.photos.find((p) => p.id === +id)

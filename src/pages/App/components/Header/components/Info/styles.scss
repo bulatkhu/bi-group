@@ -40,9 +40,49 @@
   }
 
   &__dropdown {
+  }
+}
+
+.p-d {
+  min-width: 212px;
+  z-index: 2;
+  width: 100%;
+  top: calc(100% + 26px);
+  right: 0;
+  position: absolute;
+  //visibility: hidden;
+  overflow: hidden;
+  max-height: 0;
+  transition: all .3s;
+  box-shadow: 0 5px 40px rgba(0, 0, 0, 0.06);
+
+  &.active {
+    //visibility: visible;
+    //overflow: visible;
+    max-height: 1000px;
+  }
+
+  &__wrapper {
     padding: 16px;
     background: #FFFFFF;
-    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.06);
     border-radius: 8px;
+  }
+
+  &__group {
+    margin-bottom: 24px;
+    text-align: right;
+  }
+
+  &__label {
+    font-weight: normal;
+    font-size: 16px;
+    color: var(--grey-secondary);
+    margin-bottom: 6px;
+  }
+
+  &__info {
+    font-weight: 600;
+    font-size: 18px;
+    color: #03053D;
   }
 }
