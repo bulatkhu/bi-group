@@ -18,7 +18,6 @@ const PhotoDetail = view(() => {
       })
       .catch(err => {
         console.log('err', err)
-        console.log(err)
       })
   },[id])
 

@@ -1,10 +1,50 @@
 .fromPhoto {
+  position: relative;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
-  border-radius: 8px;
-  background: #FFFFFF;
-  box-shadow: 0 5px 40px rgba(0, 0, 0, 0.06);
+  z-index: 1;
+
+  &__bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  &__wrap {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    background: #FFFFFF;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.06);
+    height: 100%;
+
+    &:hover {
+      box-shadow: 0 5px 40px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  &__upload {
+    margin-left: 16px;
+    border-radius: 8px;
+    background: #FFFFFF;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.06);
+    align-self: stretch;
+    width: 72px;
+    padding: 18px;
+
+    &:hover {
+      box-shadow: 0 5px 40px rgba(0, 0, 0, 0.35);
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
 
 
   &__el1 {
@@ -50,6 +90,97 @@
     display: block;
     border-radius: 8px;
     position: relative;
+  }
+}
+
+.f-p {
+  position: absolute;
+  top: calc(100% + 8px);
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+
+  &.active {
+    visibility: visible;
+    overflow: auto;
+    max-height: 1000px;
+  }
+
+  &__photoWrap {
+    display: flex;
+    max-width: 100%;
+    overflow: auto;
+  }
+
+  &__results {
+    border-radius: 8px;
+    background: #FFFFFF;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.06);
+  }
+
+  &__photos {
+    border-radius: 8px;
+    background: #FFFFFF;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.06);
+    min-height: 72px;
+    padding: 12px 32px;
+    margin-bottom: 8px;
+  }
+
+  &__wrapper {
+
+  }
+}
+
+.f-pPhoto {
+  &__item {
+    border-radius: 8px;
+    overflow: hidden;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+
+    &:not(:last-child) {
+      margin-right: 18px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.f-p-results {
+  padding: 20px 32px;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%) rotate(-90deg);
+    cursor: auto;
+
+    svg, path {
+      fill:  rgba(3, 5, 61, 0.2);
+    }
+  }
+
+  &__item {
+    position: relative;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
   }
 }
 

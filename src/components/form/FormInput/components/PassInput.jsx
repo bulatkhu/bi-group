@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {IconNoEye} from '../../../Icons'
+import { IconNoEye, IconNormalEye } from '../../../Icons'
 
 const Input = ({ type, form, ...rest }) => {
   const [show, setShow] = useState(false)
@@ -10,7 +10,13 @@ const Input = ({ type, form, ...rest }) => {
         onClick={() => setShow(prev => !prev)}
         className="formInput__noEye"
       >
-        <IconNoEye/>
+        {
+          show ? (
+            <IconNormalEye/>
+          ) : (
+            <IconNoEye/>
+          )
+        }
       </div>
       <input ref={form?.register} {...rest} className="formInput formInput__pass" type={show ? 'text' : 'password'}/>
     </div>

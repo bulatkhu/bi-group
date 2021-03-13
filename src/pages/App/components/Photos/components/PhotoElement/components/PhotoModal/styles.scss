@@ -57,10 +57,22 @@
     }
   }
 
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  &__date {
+    font-weight: 400;
+    font-size: 26px;
+    color: var(--grey-secondary);
+  }
+
   &__title {
     font-weight: 600;
     font-size: 26px;
     color: #03053D;
-    margin-bottom: 24px;
   }
 }

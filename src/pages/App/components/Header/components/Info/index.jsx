@@ -13,6 +13,7 @@ const Info = view(() => {
   return (
     <div className="profile-info__wrap">
       <button
+        onBlur={() => setTimeout(() => setOpen(false), 200)}
         onClick={() => setOpen(p => !p)}
         className="profile-info flex-center"
       >

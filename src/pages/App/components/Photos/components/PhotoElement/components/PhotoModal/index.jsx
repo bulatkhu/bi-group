@@ -10,12 +10,13 @@ const PhotoModal = ({ id, setOpen }) => {
   const [catalog, setCatalog] = useState({})
 
   useEffect(() => {
-    const getCatalogAsync = async () => {
-      const c = await catalogues.getCatalogById(id)
-      console.log('catalog', c)
-      setCatalog(c)
-    }
-    getCatalogAsync()
+    catalogues.getCatalogById(id)
+      .then(c => {
+        setCatalog(c)
+      })
+      .catch(err => {
+        console.log('err', err)
+      })
   },[id])
 
   return (
@@ -31,7 +32,10 @@ const PhotoModal = ({ id, setOpen }) => {
           <img src={catalog?.img} alt={catalog?.title}/>
          </span>
       </div>
-      <h2 className="pModal__title">{catalog?.title}</h2>
+      <div className="pModal__info">
+        <h2 className="pModal__title">{catalog?.title}</h2>
+        <p className="pModal__date">{catalog?.date?.toLocaleDateString()}</p>
+      </div>
       <BigButton
         onClick={() => {
           history.push(`/app-catalog/${id}`)

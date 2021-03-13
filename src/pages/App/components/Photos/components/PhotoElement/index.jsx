@@ -9,7 +9,6 @@ const PhotoElement = ({ img, title, id }) => {
 
   const onShowModal = () => {
     setOpen(true)
-    // console.log('click', id)
   }
 
   return (
