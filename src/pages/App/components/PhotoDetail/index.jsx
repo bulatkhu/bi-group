@@ -37,8 +37,8 @@ const PhotoDetail = view(() => {
         {catalog
           ? (
             <div className="p-details__wrapper">
-              <h1 className="p-details__title">{catalog?.title}</h1>
-              <p className="p-details__date">{catalog?.date.toLocaleDateString()} год</p>
+              <h1 className="p-details__title">{catalog?.name}</h1>
+              <p className="p-details__date">{catalog?.date?.toLocaleDateString()} год</p>
               <BigButton className="p-details__btn" light>Public button</BigButton>
 
               <div className="p-details__imgWrapper">
@@ -52,7 +52,7 @@ const PhotoDetail = view(() => {
 
                 <div className="p-details__img">
 
-                  <img src={catalog?.img} alt={catalog?.title}/>
+                  <img src={catalog?.images} alt={catalog?.name}/>
 
                 </div>
 

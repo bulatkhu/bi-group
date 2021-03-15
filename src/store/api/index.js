@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const headers = () => {
-  const token = sessionStorage.getItem('token');
+  const token = sessionStorage.getItem('accessToken');
 
   let Authorization = null;
 

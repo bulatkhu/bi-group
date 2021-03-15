@@ -2,21 +2,31 @@ import React from 'react'
 import { view } from '@risingstack/react-easy-state'
 import { Route, Switch, useLocation, useHistory } from 'react-router-dom'
 import auth from '../store/modules/auth'
+import Loader from '../components/elements/Loader'
 
 
 const Render = view(({ route }) => {
   const history = useHistory()
-  const { isAuth, loaded } = auth
+  const { isAuth,
+    loaded
+  } = auth
 
   if (!route.private) {
+
+    if (isAuth) {
+      history.push('/app-catalogues')
+      return null
+    }
+
     return <route.component {...route} />
   }
 
   if (
     !loaded
   ) {
-    return <p>...Loading</p>
-  } else if (isAuth) {
+    return <Loader/>
+  } else
+  if (isAuth) {
     return <route.component {...route} />
   } else if (!isAuth) {
     history.push({

@@ -1,13 +1,15 @@
 import React from 'react'
 import './styles.scss'
 
-const BigButton = ({ children, className, light, ...rest }) => {
+const BigButton = ({ children, className, light, tag, ...rest }) => {
+  const NewTag = tag || 'button'
+
   return (
-    <button
+    <NewTag
       {...rest}
       className={["bigBtn", className, light ? 'light' : null].join(' ')}>
       {children}
-    </button>
+    </NewTag>
   )
 }
 

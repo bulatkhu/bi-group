@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { view } from '@risingstack/react-easy-state'
 import FormPhoto from '../../../../components/form/FormPhoto'
 import catalogues from '../../../../store/modules/catalogue'
@@ -6,9 +6,16 @@ import Groups from './components/Groups'
 import './styles.scss'
 
 const Photos = view(() => {
+  const init = useRef(false)
+
   useEffect(() => {
-    catalogues.fetchCatalog()
-  },[])
+    if (!init.current) {
+      catalogues.getTestImages()
+      init.current = true
+    }
+    console.log('rerender')
+  }, [])
+
 
   return (
     <main className="photos">

@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
+import UsePortal from '../../../hooks/usePortal'
+// import DayPicker from 'react-day-picker'
 import SearchIcon from '../../SvgIcons/SearchIcon'
 import AnimatedDropdownArrow from '../../elements/AnimatedDropdownArrow'
 import { IconUploadImg } from '../../Icons'
+import 'react-date-range/dist/styles.css'
+import 'react-date-range/dist/theme/default.css'
 import "./styles.scss"
-import UsePortal from '../../../hooks/usePortal'
-// import ModalOverlay from '../../modals/ModalOverlay'
-// import UsePortal from '../../../hooks/usePortal'
+import { useForm } from 'react-hook-form'
+import ImageUploader from './components/ImageUploader'
 
 const mokeImages = [
   { img: '/images/mokes/house-photo1.jpg' },
@@ -14,28 +17,32 @@ const mokeImages = [
   { img: '/images/mokes/house-photo1.jpg' },
   { img: '/images/mokes/house-photo1.jpg' },
   { img: '/images/mokes/house-photo1.jpg' },
-  // { img: '/images/mokes/house-photo1.jpg' },
-  // { img: '/images/mokes/house-photo1.jpg' },
-  // { img: '/images/mokes/house-photo1.jpg' },
-  // { img: '/images/mokes/house-photo1.jpg' },
-  // { img: '/images/mokes/house-photo1.jpg' },
-  // { img: '/images/mokes/house-photo1.jpg' },
-  // { img: '/images/mokes/house-photo1.jpg' },
-  // { img: '/images/mokes/house-photo1.jpg' },
-  // { img: '/images/mokes/house-photo1.jpg' },
-  // { img: '/images/mokes/house-photo1.jpg' },
 ]
 
 const FormPhoto = () => {
-  const [open, setOpen] = useState(false)
+  const [openValue, setOpenValue] = useState(false)
+  const [openDatePicker, setOpenDatePicker] = useState(false)
+  const [openImgUploader, setOpenImgUploader] = useState(false)
+
+  const form = useForm({
+    defaultValues: {
+      image: null,
+    },
+  })
+
+  const closeEveryThing = () => {
+    setOpenDatePicker(false)
+    setOpenValue(false)
+    setOpenImgUploader(false)
+  }
 
   return (
     <div className="fromPhoto">
       {
-        open && (
+        (openValue || openDatePicker || openImgUploader) && (
           <UsePortal>
             <div
-              onClick={() => setOpen(false)}
+              onClick={closeEveryThing}
               className="fromPhoto__bg"
             />
           </UsePortal>
@@ -45,7 +52,7 @@ const FormPhoto = () => {
         <label htmlFor="value" className="fromPhoto__el1">
           <SearchIcon/>
           <input
-            onFocus={() => setOpen(true)}
+            onFocus={() => setOpenValue(true)}
             id="value"
             name="value"
             placeholder="Search by person name or event" type="text"/>
@@ -59,10 +66,21 @@ const FormPhoto = () => {
           </div>
         </button>
       </div>
-      <button className="fromPhoto__upload">
+      <button
+        onClick={() => setOpenImgUploader(true)}
+        className="fromPhoto__upload"
+      >
         <IconUploadImg/>
       </button>
-      <div className={['f-p', open ? 'active' : null].join(' ')}>
+      <ImageUploader form={form} open={openImgUploader} />
+      <div className="f-date">
+        {/*<DateRangePicker*/}
+        {/*  date={new Date()}*/}
+        {/*  onChange={handleSelect}*/}
+        {/*/>*/}
+        {/*<DayPicker/>*/}
+      </div>
+      <div className={['f-p', openValue ? 'active' : null].join(' ')}>
 
         <div className="f-p__photos f-pPhoto">
           <div className="f-p__photoWrap scrollbar">

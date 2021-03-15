@@ -3,6 +3,7 @@ import UsePortal from '../../../../../../hooks/usePortal'
 import './styles.scss'
 import ModalOverlay from '../../../../../../components/modals/ModalOverlay'
 import PhotoModal from './components/PhotoModal'
+import {TextAbstract} from '../../../../../../helpers/textCutter'
 
 const PhotoElement = ({ img, title, id }) => {
   const [open, setOpen] = useState(false)
@@ -33,7 +34,7 @@ const PhotoElement = ({ img, title, id }) => {
         className="photoElement"
       >
         <img src={img} alt={title}/>
-        <p className="photoElement__title">{title}</p>
+        <p className="photoElement__title">{TextAbstract(title, 20)}</p>
       </div>
     </>
   )

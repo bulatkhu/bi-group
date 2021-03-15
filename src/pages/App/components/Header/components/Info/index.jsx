@@ -18,7 +18,7 @@ const Info = view(() => {
         className="profile-info flex-center"
       >
         <AnimatedDropdownArrow className={['profile-info__arrow', open ? 'open' : null].join(' ')}/>
-        <span className="profile-info__name">{auth.user?.name || 'No name'}</span>
+        <span className="profile-info__name">{auth.user?.first_name || 'No name'}</span>
         <span className="profile-info__avatar">
         {
           auth.user?.avatar ? (
@@ -34,18 +34,18 @@ const Info = view(() => {
         <div className="p-d__wrapper">
           <div className="p-d__group">
             <p className="p-d__label">ФИО</p>
-            <p className="p-d__info">{auth.user?.name}</p>
+            <p className="p-d__info">{auth.user?.first_name} {auth.user?.last_name}</p>
           </div>
 
-          <div className="p-d__group">
-            <p className="p-d__label">Должность</p>
-            <p className="p-d__info">CX/UI/UX researcher </p>
-          </div>
+          {/*<div className="p-d__group">*/}
+          {/*  <p className="p-d__label">Должность</p>*/}
+          {/*  <p className="p-d__info">{auth.user?.state} </p>*/}
+          {/*</div>*/}
 
-          <div className="p-d__group">
-            <p className="p-d__label">День рождения</p>
-            <p className="p-d__info">13 September 2000</p>
-          </div>
+          {/*<div className="p-d__group">*/}
+          {/*  <p className="p-d__label">День рождения</p>*/}
+          {/*  <p className="p-d__info">13 September 2000</p>*/}
+          {/*</div>*/}
 
           <BigButton
             onClick={() => {
