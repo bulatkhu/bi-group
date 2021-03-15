@@ -6,6 +6,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## Design
+
+Link: https://www.figma.com/file/83GyYHIsiv5AIWbTLOQhqw/Bi-photo-web-(Arshyn-S.-project)?node-id=0:1
+
 ### `yarn start`
 
 Runs the app in the development mode.\
