@@ -2,17 +2,6 @@ import { store } from '@risingstack/react-easy-state'
 import { get, post } from '../api'
 import { reqErrHandler } from '../../helpers/reqErrHandler'
 
-// const mokePhotos = [
-//   { thumbnail: "/images/mokes/house-photo1.jpg", name: "House 1", id: 1, date: new Date() },
-//   { thumbnail: "/images/mokes/house-photo1.jpg", name: "House 2", id: 2, date: new Date() },
-//   { thumbnail: "/images/mokes/house-photo1.jpg", name: "House 3", id: 3, date: new Date() },
-//   { thumbnail: "/images/mokes/house-photo1.jpg", name: "House 4", id: 4, date: new Date() },
-//   { thumbnail: "/images/mokes/house-photo1.jpg", name: "House 5", id: 5, date: new Date() },
-//   { thumbnail: "/images/mokes/house-photo1.jpg", name: "House 5", id: 5, date: new Date() },
-//   { thumbnail: "/images/mokes/house-photo1.jpg", name: "House 6", id: 6, date: new Date() },
-//   { thumbnail: "/images/mokes/house-photo1.jpg", name: "House 7", id: 7, date: new Date() },
-// ]
-
 const catalogues = store({
   photos: [],
   loaded: false,

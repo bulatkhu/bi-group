@@ -2,13 +2,14 @@
   position: relative;
   width: 420px;
   height: 260px;
+  max-width: 100%;
   border-radius: 24px;
   overflow: hidden;
   cursor: pointer;
   background-color: #ccc;
 
   &__title {
-    color: #FFFFFF;
+    color: #564343;
     font-weight: 600;
     font-size: 26px;
     position: absolute;

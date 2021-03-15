@@ -54,14 +54,12 @@ const Auth = () => {
             placeholder="Введите данные"
             name="username"
             id="username"
-            defaultValue="ext-kudainazarov"
           />
           <div style={{ height: 16 }}/>
           <label htmlFor="password" className="authMid__label">
             Пароль
           </label>
           <FormInput
-            defaultValue="x386F%bZHmst"
             form={form}
             placeholder="Введите данные"
             type="password"

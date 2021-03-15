@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import UsePortal from '../../../hooks/usePortal'
+import { useMediaQuery } from 'react-responsive'
 // import DayPicker from 'react-day-picker'
 import SearchIcon from '../../SvgIcons/SearchIcon'
 import AnimatedDropdownArrow from '../../elements/AnimatedDropdownArrow'
@@ -9,26 +10,33 @@ import 'react-date-range/dist/theme/default.css'
 import "./styles.scss"
 import { useForm } from 'react-hook-form'
 import ImageUploader from './components/ImageUploader'
-
-const mokeImages = [
-  { img: '/images/mokes/house-photo1.jpg' },
-  { img: '/images/mokes/house-photo1.jpg' },
-  { img: '/images/mokes/house-photo1.jpg' },
-  { img: '/images/mokes/house-photo1.jpg' },
-  { img: '/images/mokes/house-photo1.jpg' },
-  { img: '/images/mokes/house-photo1.jpg' },
-]
+import SearchResults from './components/SearchResults'
+import RangePicker from './components/RangePicker'
 
 const FormPhoto = () => {
   const [openValue, setOpenValue] = useState(false)
   const [openDatePicker, setOpenDatePicker] = useState(false)
   const [openImgUploader, setOpenImgUploader] = useState(false)
+  const preMobile = useMediaQuery({ query: '(max-width: 992px)' })
 
   const form = useForm({
     defaultValues: {
       image: null,
     },
   })
+
+  useEffect(() => {
+    if (openValue) {
+      setOpenDatePicker(false)
+      setOpenImgUploader(false)
+    } else if (openDatePicker) {
+      setOpenValue(false)
+      setOpenImgUploader(false)
+    } else if (openImgUploader) {
+      setOpenValue(false)
+      setOpenDatePicker(false)
+    }
+  },[openValue, openDatePicker, openImgUploader])
 
   const closeEveryThing = () => {
     setOpenDatePicker(false)
@@ -49,92 +57,47 @@ const FormPhoto = () => {
         )
       }
       <div className="fromPhoto__wrap">
-        <label htmlFor="value" className="fromPhoto__el1">
+        <label onClick={() => {
+          closeEveryThing()
+          setOpenValue(true)
+        }} htmlFor="value" className="fromPhoto__el1">
           <SearchIcon/>
           <input
-            onFocus={() => setOpenValue(true)}
+            // onFocus={() => setOpenValue(true)}
             id="value"
             name="value"
-            placeholder="Search by person name or event" type="text"/>
+            placeholder={
+              !preMobile
+                ? "Search by person name or event"
+                : "Search"
+            } type="text"/>
         </label>
-        <button className="fromPhoto__el2">
+        <button onClick={() => {
+          closeEveryThing()
+          setOpenDatePicker(prev => !prev)
+        }} className="fromPhoto__el2">
           <div className="datePicker">
           <span className="datePicker__name">
               Choose date
           </span>
-            <AnimatedDropdownArrow/>
+            <AnimatedDropdownArrow
+              className={openDatePicker ? 'active' : null}
+            />
           </div>
         </button>
       </div>
       <button
-        onClick={() => setOpenImgUploader(true)}
+        onClick={() => {
+          closeEveryThing()
+          setOpenImgUploader(true)
+        }}
         className="fromPhoto__upload"
       >
         <IconUploadImg/>
       </button>
       <ImageUploader form={form} open={openImgUploader} />
-      <div className="f-date">
-        {/*<DateRangePicker*/}
-        {/*  date={new Date()}*/}
-        {/*  onChange={handleSelect}*/}
-        {/*/>*/}
-        {/*<DayPicker/>*/}
-      </div>
-      <div className={['f-p', openValue ? 'active' : null].join(' ')}>
-
-        <div className="f-p__photos f-pPhoto">
-          <div className="f-p__photoWrap scrollbar">
-            {mokeImages.map((item, index) => (
-              <div className="f-pPhoto__item" key={index}>
-                <img src={item.img} alt={index}/>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <ul className="f-p__results f-p-results">
-          <li className="f-p-results__item">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam
-            <span className="f-p-results__icon">
-              <AnimatedDropdownArrow/>
-            </span>
-          </li>
-          <li className="f-p-results__item">
-            Lorem ipsum dolor sit amet
-            <span className="f-p-results__icon">
-              <AnimatedDropdownArrow/>
-            </span>
-          </li>
-          <li className="f-p-results__item">
-            Lorem ipsum dolor
-            <span className="f-p-results__icon">
-              <AnimatedDropdownArrow/>
-            </span>
-          </li>
-          <li className="f-p-results__item">
-            Lorem ipsum dolor sit amet, consectetur
-            <span className="f-p-results__icon">
-              <AnimatedDropdownArrow/>
-            </span>
-          </li>
-        </ul>
-
-        <ul className="f-p__results f-p-results">
-          <li className="f-p-results__item">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam
-            <span className="f-p-results__icon">
-              <AnimatedDropdownArrow/>
-            </span>
-          </li>
-          <li className="f-p-results__item">
-            Lorem ipsum dolor sit amet
-            <span className="f-p-results__icon">
-              <AnimatedDropdownArrow/>
-            </span>
-          </li>
-        </ul>
-
-      </div>
+      <RangePicker open={openDatePicker} />
+      <SearchResults open={openValue} />
     </div>
   )
 }
