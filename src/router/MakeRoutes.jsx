@@ -7,9 +7,7 @@ import Loader from '../components/elements/Loader'
 
 const Render = view(({ route }) => {
   const history = useHistory()
-  const { isAuth,
-    loaded
-  } = auth
+  const { isAuth, loaded } = auth
 
   if (!route.private) {
 
@@ -30,7 +28,7 @@ const Render = view(({ route }) => {
     return <route.component {...route} />
   } else if (!isAuth) {
     history.push({
-      pathname: '/auth',
+      pathname: '/',
       state: { message: "You should be logged in" }
     })
   }

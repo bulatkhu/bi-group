@@ -19,18 +19,6 @@ module.exports = app => {
       },
     }),
   );
-
-  app.use(
-    '/api',
-    createProxyMiddleware({
-      target: 'https://test-api-media.bi.group',
-      changeOrigin: true,
-      secure: false,
-      pathRewrite: {
-        '/api': '/',
-      },
-    }),
-  );
   app.use(
     '/users',
     createProxyMiddleware({

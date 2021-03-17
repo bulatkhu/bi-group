@@ -1,5 +1,6 @@
 {
   "name": "bi-group",
+  "author": "Bulat Khudainazarov",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

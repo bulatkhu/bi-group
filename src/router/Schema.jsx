@@ -4,11 +4,6 @@ import PhotoDetail from '../pages/App/components/PhotoDetail'
 
 const Schema = [
   {
-    path: '/auth',
-    component: Auth,
-    private: false,
-  },
-  {
     path: '/app-catalogues',
     component: Photos,
     private: true,
@@ -17,6 +12,17 @@ const Schema = [
     path: '/app-catalog/:id',
     component: PhotoDetail,
     private: true,
+  },
+  {
+    path: '/',
+    component: Auth,
+    private: false,
+  },
+
+  {
+    path: '/auth',
+    component: Auth,
+    private: false,
   },
 ]
 
