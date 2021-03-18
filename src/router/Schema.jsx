@@ -4,7 +4,7 @@ import PhotoDetail from '../pages/App/components/PhotoDetail'
 
 const Schema = [
   {
-    path: '/app-catalogues',
+    path: '/app-catalogues/:page?',
     component: Photos,
     private: true,
   },

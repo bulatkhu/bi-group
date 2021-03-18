@@ -205,6 +205,8 @@
     min-height: 72px;
     padding: 12px 32px;
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
 
     @media (max-width: 767px) {
       padding: 10px;

@@ -22,6 +22,7 @@ const FormPhoto = () => {
   const form = useForm({
     defaultValues: {
       image: null,
+      value: '',
     },
   })
 
@@ -63,7 +64,7 @@ const FormPhoto = () => {
         }} htmlFor="value" className="fromPhoto__el1">
           <SearchIcon/>
           <input
-            // onFocus={() => setOpenValue(true)}
+            ref={form.register}
             id="value"
             name="value"
             placeholder={
@@ -97,7 +98,7 @@ const FormPhoto = () => {
       </button>
       <ImageUploader form={form} open={openImgUploader} />
       <RangePicker open={openDatePicker} />
-      <SearchResults open={openValue} />
+      <SearchResults form={form} open={openValue} />
     </div>
   )
 }

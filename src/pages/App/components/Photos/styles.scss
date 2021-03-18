@@ -16,6 +16,34 @@
     display: flex;
     justify-content: center;
   }
+
+  &__pagination {
+    margin-top: 20px;
+    max-height: 100px;
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &__btn {
+    padding: 5px 10px;
+    background-color: var(--black-main);
+    color: #fff;
+    font-size: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+    &.active {
+      background-color: var(--grey-secondary);
+      color: #000;
+    }
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
 }
 
 .photosMain {
@@ -49,6 +77,11 @@
   }
 
   &__photos {
+    //display: flex;
+    //flex-wrap: wrap;
+    //grid-column-gap: 24px;
+    //grid-row-gap: 42px;
+    //justify-content: flex-start;
     display: grid;
     grid-column-gap: 24px;
     grid-row-gap: 42px;

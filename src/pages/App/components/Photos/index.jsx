@@ -1,21 +1,19 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { view } from '@risingstack/react-easy-state'
+import { useParams } from 'react-router-dom'
 import FormPhoto from '../../../../components/form/FormPhoto'
 import catalogues from '../../../../store/modules/catalogue'
 import Groups from './components/Groups'
 import './styles.scss'
 import Loader from '../../../../components/elements/Loader'
+import Pagination from './components/Pagination'
 
 const Photos = view(() => {
-  const init = useRef(false)
+  const params = useParams()
 
   useEffect(() => {
-    if (!init.current && !catalogues.photos?.length) {
-      catalogues.getTestImages()
-      init.current = true
-    }
-    console.log('rerender')
-  }, [])
+    catalogues.getTestImages(params.page || 0)
+  }, [params.page])
 
 
   return (
@@ -34,6 +32,8 @@ const Photos = view(() => {
           ? <Loader />
           : <Groups />
         }
+
+        <Pagination page={params.page || 0}/>
       </div>
     </main>
   )

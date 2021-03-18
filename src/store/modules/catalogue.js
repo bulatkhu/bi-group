@@ -4,7 +4,12 @@ import { reqErrHandler } from '../../helpers/reqErrHandler'
 
 const catalogues = store({
   photos: [],
+  limit: 25,
+  offset: 25,
   loaded: false,
+  prevLink: null,
+  nextLink: null,
+  imageProgress: 0,
 
   clearModule() {
     catalogues.photos = []
@@ -21,10 +26,12 @@ const catalogues = store({
     return post('/api/search/upload/', formData)
   },
 
-  async getTestImages() {
+  async getTestImages(page) {
     try {
-      const res = await get(`/api/images/`)
+      const res = await get(`/api/images/`, {  limit: catalogues.limit, offset: catalogues.offset * page })
       catalogues.photos = res.data?.results
+      catalogues.prevLink = res.data?.previous
+      catalogues.nextLink = res.data?.next
       catalogues.loaded = true
       return res
     } catch (e) {
