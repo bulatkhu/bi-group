@@ -5,6 +5,7 @@ import catalogues from '../../../../store/modules/catalogue'
 import './styles.scss'
 import BigButton from '../../../../components/elements/BigButton'
 import AnimatedDropdownArrow from '../../../../components/elements/AnimatedDropdownArrow'
+import ResizeImage from './components/ResizeImage'
 
 const PhotoDetail = view(() => {
   const { id } = useParams()
@@ -50,12 +51,7 @@ const PhotoDetail = view(() => {
                   <AnimatedDropdownArrow />
                 </button>
 
-                <div className="p-details__img">
-
-                  <img src={catalog?.images} alt={catalog?.name}/>
-
-                </div>
-
+                <ResizeImage img={catalog?.images} alt={catalog?.name}/>
 
               </div>
             </div>

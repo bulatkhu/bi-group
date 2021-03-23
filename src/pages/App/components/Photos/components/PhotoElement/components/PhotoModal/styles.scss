@@ -52,7 +52,7 @@
     margin-bottom: 28px;
 
     img {
-      max-width: 100%;
+      width: 100%;
       margin: auto;
       height: available;
     }
@@ -75,5 +75,9 @@
     font-weight: 600;
     font-size: 26px;
     color: #03053D;
+
+    @media (max-width: 767px) {
+      font-size: 20px;
+    }
   }
 }

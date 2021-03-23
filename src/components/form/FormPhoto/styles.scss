@@ -60,7 +60,7 @@
       height: 100%;
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 1200px) {
       width: 46px;
       height: 46px;
       padding: 10px;
@@ -82,7 +82,7 @@
     position: relative;
     cursor: text;
 
-    @media (max-width: 992px) {
+    @media (max-width: 1200px) {
       padding: 10px 10px 10px 52px;
     }
 
@@ -92,6 +92,13 @@
     }
 
     @media (max-width: 576px) {
+    }
+
+    @media (max-width: 375px) {
+      padding: 10px;
+      svg {
+        display: none;
+      }
     }
 
     &::before {
@@ -140,7 +147,7 @@
     position: relative;
     font-size: inherit;
 
-    @media (max-width: 992px) {
+    @media (max-width: 1200px) {
       padding: 10px 10px 10px 32px;
     }
 
@@ -152,6 +159,11 @@
     @media (max-width: 576px) {
       padding: 10px;
       min-width: 135px;
+    }
+
+    @media (max-width: 375px) {
+      padding: 10px;
+      min-width: unset;
     }
 
     &::before {
@@ -301,6 +313,7 @@
 
   &__imageName {
     padding: 20px;
+    word-wrap: anywhere;
   }
 
   &__wrapUploaded {
@@ -315,6 +328,14 @@
     margin: auto;
     max-height: 100%;
     height: 500px;
+
+    @media (max-width: 1200px) {
+      height: unset;
+    }
+
+    @media (max-width: 767px) {
+      padding: 10px;
+    }
   }
 
   &__btnWrap {

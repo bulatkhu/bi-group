@@ -33,8 +33,10 @@ const PhotoElement = ({ img, title, id }) => {
         data-id={id}
         className="photoElement"
       >
-        <img src={img} alt={title}/>
         <p className="photoElement__title">{TextAbstract(title, 20)}</p>
+        <div className="photoElement__img">
+          <img src={img} alt={title}/>
+        </div>
       </div>
     </>
   )

@@ -20,4 +20,9 @@
   &:disabled, &:hover {
     background: #7285a7;
   }
+
+  @media (max-width: 767px) {
+    padding: 11px;
+    font-size: 16px;
+  }
 }

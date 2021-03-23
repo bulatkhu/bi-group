@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { DateRange } from 'react-date-range';
+import { view } from '@risingstack/react-easy-state'
+import catalogues from '../../../../../store/modules/catalogue'
 
-const RangePicker = ({ open }) => {
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
-
+const RangePicker = view(({ open }) => {
   const handleChangeRange = ({ range }) => {
-    setStartDate(range.startDate)
-    setEndDate(range.endDate)
+    catalogues.searchDateStart = range.startDate
+    catalogues.searchDateEnd = range.endDate
   }
 
   return (
@@ -15,8 +14,8 @@ const RangePicker = ({ open }) => {
       <DateRange
         ranges={[
           {
-            startDate,
-            endDate,
+            startDate: catalogues.searchDateStart || new Date(),
+            endDate: catalogues.searchDateEnd || new Date(),
             key: 'range',
           }
         ]}
@@ -24,6 +23,6 @@ const RangePicker = ({ open }) => {
       />
     </div>
   )
-}
+})
 
 export default RangePicker

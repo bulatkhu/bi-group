@@ -27,7 +27,7 @@ const SearchResults = view(({ open, form }) => {
     }
   }, [hasValue, debouncedValue])
 
-  console.log('result', searching.result.tags)
+  // console.log('result', searching.result.tags)
 
   return (
     <div className={['f-p', open ? 'active' : null].join(' ')}>
@@ -36,7 +36,7 @@ const SearchResults = view(({ open, form }) => {
         <div className="f-p__photoWrap scrollbar">
           {searching.result.profiles.length ? (
             searching.result.profiles?.map((item, index) => (
-              <div className="f-pPhoto__item" key={item}>
+              <div data-id={item.pk} className="f-pPhoto__item" key={item.pk}>
                 <img src={item.image_url} alt={index}/>
               </div>
             ))
@@ -46,8 +46,8 @@ const SearchResults = view(({ open, form }) => {
 
       <ul className="f-p__results f-p-results">
         {searching.result.tags.length ? (
-          searching.result.tags.map((item) => (
-            <li key={item.pk} className="f-p-results__item">
+          searching.result.tags.map((item, index) => (
+            <li data-id={item.pk} key={item.pk} className="f-p-results__item">
               {item.name}
               <span className="f-p-results__icon">
               <AnimatedDropdownArrow/>

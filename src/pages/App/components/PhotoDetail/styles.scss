@@ -44,6 +44,18 @@
     font-weight: 600;
     font-size: 36px;
     margin-bottom: 16px;
+
+    @media (max-width: 1200px) {
+      font-size: 30px;
+    }
+
+    @media (max-width: 992px) {
+      font-size: 26px;
+    }
+
+    @media (max-width: 767px) {
+      font-size: 20px;
+    }
   }
 
   &__date {
@@ -71,21 +83,63 @@
       padding: 0;
     }
   }
-  //__next
+
+  &__btnScale {
+    z-index: 2;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: #F2F1F5;
+    backdrop-filter: blur(4px);
+    padding: 7px;
+    border-radius: 8px;
+
+    &.plus {
+      bottom: 50px;
+    }
+  }
+
+  &__scaleValue {
+    z-index: 2;
+    position: absolute;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: #F2F1F5;
+    backdrop-filter: blur(4px);
+    padding: 7px;
+    border-radius: 8px;
+    bottom: 100px;
+  }
+
+  &__imgWrapper {
+    position: relative;
+    height: 100%;
+  }
 
   &__img {
     margin: auto;
     position: relative;
     max-width: 100%;
-    padding-bottom: 56.3%;
+
+    @media (max-width: 767px) {
+      padding-bottom: unset;
+    }
 
     img {
-      position: absolute;
-      transform: translate(-50%, -50%);
+      //position: absolute;
+      //transform: translate(-50%, -50%);
       max-width: 100%;
       max-height: 100%;
-      top: 50%;
-      left: 50%;
+      //top: 50%;
+      //left: 50%;
+
+      @media (max-width: 767px) {
+        position: unset;
+        transform: unset;
+      }
     }
   }
 }
