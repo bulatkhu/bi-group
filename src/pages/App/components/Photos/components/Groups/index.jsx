@@ -3,26 +3,20 @@ import { view } from '@risingstack/react-easy-state'
 import PhotoElement from '../PhotoElement'
 import catalogues from '../../../../../../store/modules/catalogue'
 
-const Groups = view(({ found }) => {
-
-  const hasPhotos = Object.keys(catalogues.photos).length
-
-  console.log('hasPhotos', hasPhotos)
+const Groups = view(() => {
+  const hasPhotos = Object.keys(catalogues.sortedByYear).length
 
   return (
     <>
       {hasPhotos ? (
         <>
-          {Object.keys(catalogues.photos).map((key, index) => {
-            const photo = catalogues.photos[key]
-
-            console.log('photo', photo)
-
+          {Object.keys(catalogues.sortedByYear).map((key, index) => {
+            const photo = catalogues.sortedByYear[key]
             return (
-              <>
+              <div key={index}>
                 <p className="photosMain__date">{key} год</p>
                 <div className="photosMain__photos">
-                  {catalogues.photos[key].map((photo, index) => (
+                  {photo.map((photo, index) => (
                     <PhotoElement
                       id={photo.pk}
                       key={index}
@@ -31,7 +25,7 @@ const Groups = view(({ found }) => {
                     />
                   ))}
                 </div>
-              </>
+              </div>
             )
            })}
         </>

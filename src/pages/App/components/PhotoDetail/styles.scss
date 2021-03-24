@@ -123,6 +123,7 @@
     margin: auto;
     position: relative;
     max-width: 100%;
+    overflow: hidden;
 
     @media (max-width: 767px) {
       padding-bottom: unset;

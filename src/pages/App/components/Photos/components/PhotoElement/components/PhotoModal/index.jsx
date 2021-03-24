@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
-import catalogues from '../../../../../../../../store/modules/catalogue'
 import { IconClose } from '../../../../../../../../components/Icons'
 import BigButton from '../../../../../../../../components/elements/BigButton'
-import './styles.scss'
 import { TextAbstract } from '../../../../../../../../helpers/textCutter'
+import './styles.scss'
 
-const PhotoModal = ({ id, setOpen }) => {
+const PhotoModal = ({ id, setOpen, img, title }) => {
   const history = useHistory()
-  const [catalog, setCatalog] = useState({})
-
-  useEffect(() => {
-    catalogues.getCatalogById(id)
-      .then(c => {
-        setCatalog(c)
-      })
-      .catch(err => {
-        console.log('err', err)
-      })
-  },[id])
 
   return (
     <div className="pModal">
@@ -30,16 +18,19 @@ const PhotoModal = ({ id, setOpen }) => {
           <IconClose/>
         </button>
         <span className="pModal__imgWrap flex-center">
-          <img src={catalog?.thumbnail} alt={catalog?.name}/>
+          <img src={img} alt={title}/>
          </span>
       </div>
       <div className="pModal__info">
-        <h2 className="pModal__title">{TextAbstract(catalog?.name, 30)}</h2>
-        <p className="pModal__date">{catalog?.date?.toLocaleDateString()}</p>
+        <h2 className="pModal__title">{TextAbstract(title, 30)}</h2>
+        <p className="pModal__date">{title.date?.toLocaleDateString()}</p>
       </div>
       <BigButton
         onClick={() => {
-          history.push(`/app-catalog/${id}`)
+          history.push({
+            pathname: `/app-catalog/${id}`,
+            state: { img, title }
+          })
         }}
       >Просмотреть полную информацию</BigButton>
     </div>

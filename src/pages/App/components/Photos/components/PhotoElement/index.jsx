@@ -21,6 +21,8 @@ const PhotoElement = ({ img, title, id }) => {
               setOpen={setOpen}
             >
               <PhotoModal
+                img={img}
+                title={title}
                 setOpen={setOpen}
                 id={id}
               />

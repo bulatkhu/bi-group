@@ -12,6 +12,7 @@ const catalogues = store({
   nextLink: null,
   imageProgress: 0,
   interval: null,
+  sortedByYear: null,
 
   clearModule() {
     catalogues.photos = []
@@ -25,7 +26,8 @@ const catalogues = store({
   async getTestImages(page) {
     try {
       const res = await get(`/api/images/`, {  limit: catalogues.limit, offset: catalogues.offset * page })
-      catalogues.photos = sortPhotos(res.data?.results)
+      catalogues.sortedByYear = sortPhotos(res.data?.results)
+      catalogues.photos = res.data?.results
       catalogues.prevLink = res.data?.previous
       catalogues.nextLink = res.data?.next
       catalogues.catalogLoaded = true
@@ -41,7 +43,7 @@ const catalogues = store({
       return catalogues.photos.find((p) => p.pk === +id)
     } else {
       await catalogues.getTestImages();
-      return catalogues.photos.find((p) => p.pk === +id) || {}
+      return catalogues.photos.find((p) => p.pk === +id)
     }
   },
 })

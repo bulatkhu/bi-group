@@ -10,12 +10,17 @@ import ResizeImage from './components/ResizeImage'
 const PhotoDetail = view(() => {
   const { id } = useParams()
   const history = useHistory()
-  const [catalog, setCatalog] = useState()
+  const [catalog, setCatalog] = useState(null)
+  const [notFound, setNotFound] = useState(null)
 
   useEffect(() => {
     catalogues.getCatalogById(id)
       .then(c => {
-        setCatalog(c)
+        if (c) {
+          setCatalog(c)
+        } else {
+          setNotFound(true)
+        }
       })
       .catch(err => {
         console.log('err', err)
@@ -56,7 +61,7 @@ const PhotoDetail = view(() => {
               </div>
             </div>
           )
-          : <p>...Loading</p>
+          : <p>{ notFound ? "Not found" : "...Loading" }</p>
         }
       </div>
     </>
