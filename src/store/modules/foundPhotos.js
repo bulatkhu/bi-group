@@ -1,6 +1,6 @@
 import { store } from '@risingstack/react-easy-state'
-import {get, post} from '../api'
-import {reqErrHandler} from '../../helpers/reqErrHandler'
+import { get, post } from '../api'
+import { reqErrHandler } from '../../helpers/reqErrHandler'
 
 const foundPhotos = store({
   searching: false,

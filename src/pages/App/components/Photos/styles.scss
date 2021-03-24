@@ -86,11 +86,13 @@
   }
 
   &__photos {
-    display: grid;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     align-items: flex-start;
-    grid-column-gap: 24px;
-    grid-row-gap: 42px;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 330px));
+
+    @media (max-width: 1200px) {
+      justify-content: center;
+    }
   }
 }

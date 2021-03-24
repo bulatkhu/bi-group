@@ -1,12 +1,12 @@
 import React from 'react'
 import { DateRange } from 'react-date-range';
 import { view } from '@risingstack/react-easy-state'
-import catalogues from '../../../../../store/modules/catalogue'
+import foundPhotos from '../../../../../store/modules/foundPhotos'
 
 const RangePicker = view(({ open }) => {
   const handleChangeRange = ({ range }) => {
-    catalogues.searchDateStart = range.startDate
-    catalogues.searchDateEnd = range.endDate
+    foundPhotos.searchDateStart = range.startDate
+    foundPhotos.searchDateEnd = range.endDate
   }
 
   return (
@@ -14,8 +14,8 @@ const RangePicker = view(({ open }) => {
       <DateRange
         ranges={[
           {
-            startDate: catalogues.searchDateStart || new Date(),
-            endDate: catalogues.searchDateEnd || new Date(),
+            startDate: foundPhotos.searchDateStart || new Date(),
+            endDate: foundPhotos.searchDateEnd || new Date(),
             key: 'range',
           }
         ]}

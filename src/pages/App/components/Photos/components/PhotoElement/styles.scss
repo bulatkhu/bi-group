@@ -1,22 +1,24 @@
 .photoElement {
   position: relative;
   max-width: 100%;
-  border-radius: 24px 24px 0 0 ;
+  border-radius: 24px;
   overflow: hidden;
   cursor: pointer;
-  background-color: #ccc;
+  margin: 10px;
+  background-color: #000;
 
   @media (max-width: 992px) {
-    border-radius: 12px 12px 0 0;
+    border-radius: 12px;
   }
 
   @media (max-width: 767px) {
-    border-radius: 6px 6px 0 0;
+    border-radius: 6px;
   }
 
   &__img {
-    //width: 420px;
-    //height: 260px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: -2px;
   }
 
   &__title {
@@ -27,7 +29,7 @@
     margin-bottom: 10px;
 
     @media (max-width: 1200px) {
-    font-size: 23px;
+      font-size: 23px;
     }
 
     @media (max-width: 767px) {

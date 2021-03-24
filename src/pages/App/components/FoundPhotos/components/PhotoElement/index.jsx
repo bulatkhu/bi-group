@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import UsePortal from '../../../../../../hooks/usePortal'
-import './styles.scss'
 import ModalOverlay from '../../../../../../components/modals/ModalOverlay'
 import PhotoModal from './components/PhotoModal'
 import {TextAbstract} from '../../../../../../helpers/textCutter'
