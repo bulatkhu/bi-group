@@ -3,7 +3,6 @@ import { view } from '@risingstack/react-easy-state'
 import { useParams } from 'react-router-dom'
 import FormPhoto from '../../../../components/form/FormPhoto'
 import Groups from './components/Groups'
-import './styles.scss'
 import Loader from '../../../../components/elements/Loader'
 import foundPhotos from '../../../../store/modules/foundPhotos'
 
@@ -23,10 +22,10 @@ const FoundPhotos = view(() => {
       </div>
       <div className="photos__main photosMain">
         <h1 className="photosMain__title">
-          Галерея фотографий
+          Найденные фотографий
         </h1>
 
-        <p className="photosMain__date">2013 год</p>
+        <div style={{ height: 10 }} />
         {
           foundPhotos.searching
             ? <Loader text="Searching..." />

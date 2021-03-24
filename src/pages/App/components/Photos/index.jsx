@@ -8,34 +8,12 @@ import './styles.scss'
 import Loader from '../../../../components/elements/Loader'
 import Pagination from './components/Pagination'
 
-const Photos = view((props) => {
+const Photos = view(() => {
   const params = useParams()
 
-  console.log('props', props.state)
-
   useEffect(() => {
-    if (props.state?.found) {
-      catalogues.getTestImages(params.page || 0)
-    } else if (!props.state?.found) {
-      catalogues.getTestImages(params.page || 0)
-    }
-  }, [params.page, props.state])
-
-
-  const makeGroups = () => {
-    if (props.state?.found) {
-      return catalogues.searchResLoaded
-        ? <Loader />
-        : <Groups found />
-    } else {
-      return !catalogues.catalogLoaded
-        ? <Loader />
-        : <>
-            <Groups/>
-            <Pagination page={params.page || 0}/>
-          </>
-    }
-  }
+    catalogues.getTestImages(params.page || 0)
+  }, [params.page])
 
   return (
     <main className="photos">
@@ -46,10 +24,12 @@ const Photos = view((props) => {
         <h1 className="photosMain__title">
           Галерея фотографий
         </h1>
-
-        <p className="photosMain__date">2013 год</p>
-        {makeGroups()}
-
+        {!catalogues.catalogLoaded
+          ? <Loader />
+          : <>
+            <Groups/>
+            <Pagination page={params.page || 0}/>
+          </>}
       </div>
     </main>
   )

@@ -5,47 +5,37 @@ import catalogues from '../../../../../../store/modules/catalogue'
 
 const Groups = view(({ found }) => {
 
-  const makePhotos = () => {
-    if (!found) {
-      return (
-        catalogues.photos.length ? (
-          <div className="photosMain__photos">
-            {catalogues.photos.map((photo, index) =>
-              <PhotoElement
-                id={photo.pk}
-                key={index}
-                title={photo.name}
-                img={photo.thumbnail}
-              />
-            )}
-          </div>
-        ) : <p>No photo</p>
-      )
-    } else {
-      const photos = catalogues.searchResult?.results
+  const hasPhotos = Object.keys(catalogues.photos).length
 
-      if (photos && photos.length) {
-        return (
-          <div className="photosMain__photos">
-            {photos.map((photo, index) =>
-              <PhotoElement
-                id={photo.pk}
-                key={index}
-                title={photo.name}
-                img={photo.thumbnail}
-              />
-            )}
-          </div>
-        )
-      } else {
-        return <p>No photo found</p>
-      }
-    }
-  }
+  console.log('hasPhotos', hasPhotos)
 
   return (
     <>
-      {makePhotos()}
+      {hasPhotos ? (
+        <>
+          {Object.keys(catalogues.photos).map((key, index) => {
+            const photo = catalogues.photos[key]
+
+            console.log('photo', photo)
+
+            return (
+              <>
+                <p className="photosMain__date">{key} год</p>
+                <div className="photosMain__photos">
+                  {catalogues.photos[key].map((photo, index) => (
+                    <PhotoElement
+                      id={photo.pk}
+                      key={index}
+                      title={photo.name}
+                      img={photo.thumbnail}
+                    />
+                  ))}
+                </div>
+              </>
+            )
+           })}
+        </>
+      ) : <p>No photo</p>}
     </>
   )
 })
