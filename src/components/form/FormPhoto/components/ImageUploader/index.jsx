@@ -1,32 +1,25 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {view} from '@risingstack/react-easy-state'
 import BigButton from '../../../../elements/BigButton'
-import catalogues from '../../../../../store/modules/catalogue'
 import {useController} from 'react-hook-form'
 import {reqErrHandler} from '../../../../../helpers/reqErrHandler'
+import foundPhotos from '../../../../../store/modules/foundPhotos'
+import { useHistory } from 'react-router-dom'
 import Loader from '../../../../elements/Loader'
 
 const ImageUploader = view(({ open, form }) => {
   const [base64, setBase64] = useState(null)
   const [process, setProcess] = useState(false)
   const { watch, control, handleSubmit, reset } = form
+  const history = useHistory()
 
   useEffect(() => {
     if (!open) {
       reset()
       setProcess(false)
       setTimeout(() => setBase64(null), 300)
-      catalogues.clearInterval()
-      catalogues.clearSearching()
     }
   }, [open, reset])
-
-  useEffect(() => {
-    return () => {
-      catalogues.clearInterval()
-      catalogues.clearSearching()
-    }
-  },[])
 
   const { field } = useController({
     control,
@@ -44,10 +37,10 @@ const ImageUploader = view(({ open, form }) => {
   );
 
   const image = watch('image', false)
-  // console.log('image', image)
 
   useEffect(() => {
     if (image) {
+      foundPhotos.clearSearching()
       const reader = new FileReader()
       reader.addEventListener('loadend', () => {
         setBase64(reader.result)
@@ -62,13 +55,16 @@ const ImageUploader = view(({ open, form }) => {
     formData.append('image', data.image)
 
     try {
-      const res = await catalogues.findByImage(formData)
-      const result = await catalogues.searchImageByUrl(res.data?.image)
+      const res = await foundPhotos.findByImage(formData)
+      const result = await foundPhotos.searchImageByUrl(res.data?.image)
       setProcess(false)
-      await catalogues.checkWorkerProgress(result.data?.request_id)
+      await foundPhotos.checkWorkerProgress(result.data?.request_id)
+      history.push(`/app-found/${result.data?.request_id}`)
     } catch (e) {
       setProcess(false)
       const err = reqErrHandler(e)
+      // setError(err)
+      alert(err)
       console.log('err', err)
     }
 
@@ -86,39 +82,35 @@ const ImageUploader = view(({ open, form }) => {
         accept="image/*"
       />
       <div className="f-i__date">
-        {catalogues.searchDateStart && (
-          <span>Date start: {new Date(catalogues.searchDateStart).toLocaleDateString()}</span>
+        {foundPhotos.searchDateStart && (
+          <span>Date start: {new Date(foundPhotos.searchDateStart).toLocaleDateString()}</span>
         )}
-        {catalogues.searchDateEnd && (
-          <span>Date end: {new Date(catalogues.searchDateEnd).toLocaleDateString()}</span>
+        {foundPhotos.searchDateEnd && (
+          <span>Date end: {new Date(foundPhotos.searchDateEnd).toLocaleDateString()}</span>
         )}
       </div>
       { base64 ? (
         <div className="f-i__wrapUploaded">
           <p className="f-i__imageName">{image?.name}</p>
+          {foundPhotos.searching && <Loader text="Searching, just a moment" small />}
           <img className="f-i__uploaded" src={base64} alt="uploaded"/>
-          {!catalogues.searching && catalogues.searchResult && (
+          {!foundPhotos.searching && foundPhotos.searchResult && (
             <div style={{ textAlign: "center", marginBottom: 20, }}>
-              {catalogues.searchResult?.results?.length ? (
+              {foundPhotos.searchResult?.results?.length ? (
                 <>
-                  <p>Found images</p>
-                  <div>{JSON.stringify(catalogues.searchResult)}</div>
                 </>
-
               ) : (
                 <p>Nothing was found</p>
               )}
             </div>
           )}
           <div className="f-i__btnWrap">
-            {!catalogues.searching ? (
+            {!foundPhotos.searching && (
               <BigButton
-                disabled={process || catalogues.searchResult}
+                disabled={process || foundPhotos.searching}
                 onClick={handleSubmit(onSearchByImage)}
                 className="f-i__searchBtn"
               >{process ? "...Loading" : "Search by image"}</BigButton>
-            ) : (
-              <Loader />
             )}
           </div>
         </div>

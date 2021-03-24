@@ -96,7 +96,7 @@ const FormPhoto = () => {
       >
         <IconUploadImg/>
       </button>
-      <ImageUploader form={form} open={openImgUploader} />
+      <ImageUploader form={form} open={openImgUploader} setOpen={setOpenImgUploader} />
       <RangePicker open={openDatePicker} />
       <SearchResults form={form} open={openValue} />
     </div>

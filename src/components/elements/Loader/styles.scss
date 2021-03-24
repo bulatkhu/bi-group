@@ -3,4 +3,8 @@
   max-height: 400px;
   color: #1BBFCC;
   font-size: 15px;
+
+  &.small {
+    height: 10vh;
+  }
 }
