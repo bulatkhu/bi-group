@@ -1,33 +1,24 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import AnimatedDropdownArrow from '../../../../elements/AnimatedDropdownArrow'
 import searching from '../../../../../store/modules/searching'
-import { useDebounce } from '../../../../../hooks/useDebounce'
 import { view } from '@risingstack/react-easy-state'
 
-// const mokeImages = [
-//   { img: '/images/mokes/house-photo1.jpg' },
-//   { img: '/images/mokes/house-photo1.jpg' },
-//   { img: '/images/mokes/house-photo1.jpg' },
-//   { img: '/images/mokes/house-photo1.jpg' },
-//   { img: '/images/mokes/house-photo1.jpg' },
-//   { img: '/images/mokes/house-photo1.jpg' },
-// ]
+const SearchResults = view(({ open, hasValue }) => {
 
-const SearchResults = view(({ open, form }) => {
-  const value = form.watch('value')
-  const debouncedValue = useDebounce(value, 700)
+  const FieldInfoSearching = () => {
+    let message = "";
 
-  const hasValue = debouncedValue && debouncedValue.trim()
-
-  useEffect(() => {
-    if (hasValue) {
-      searching.searchByValue(debouncedValue)
-    } else {
-      searching.clearModule()
+    if (hasValue && searching.loading) {
+      message = "Not found"
     }
-  }, [hasValue, debouncedValue])
-
-  // console.log('result', searching.result.tags)
+    if (!searching.loading && hasValue) {
+      message = "Click search"
+    }
+    if (!hasValue) {
+      message = "Input to search"
+    }
+    return <p>{message}</p>
+  };
 
   return (
     <div className={['f-p', open ? 'active' : null].join(' ')}>
@@ -40,7 +31,7 @@ const SearchResults = view(({ open, form }) => {
                 <img src={item.image_url} alt={index}/>
               </div>
             ))
-          ) : <p>{hasValue ? "Not found" : "Input to search"}</p>}
+          ) : <FieldInfoSearching />}
         </div>
       </div>
 
@@ -54,24 +45,8 @@ const SearchResults = view(({ open, form }) => {
             </span>
             </li>
           ))
-        ) : <p>{hasValue ? "Not found" : "Input to search"}</p>}
+        ) : <FieldInfoSearching />}
       </ul>
-
-      {/*<ul className="f-p__results f-p-results">*/}
-      {/*  <li className="f-p-results__item">*/}
-      {/*    Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam*/}
-      {/*    <span className="f-p-results__icon">*/}
-      {/*        <AnimatedDropdownArrow/>*/}
-      {/*      </span>*/}
-      {/*  </li>*/}
-      {/*  <li className="f-p-results__item">*/}
-      {/*    Lorem ipsum dolor sit amet*/}
-      {/*    <span className="f-p-results__icon">*/}
-      {/*        <AnimatedDropdownArrow/>*/}
-      {/*      </span>*/}
-      {/*  </li>*/}
-      {/*</ul>*/}
-
     </div>
   )
 })

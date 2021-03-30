@@ -12,6 +12,8 @@ import { useForm } from 'react-hook-form'
 import ImageUploader from './components/ImageUploader'
 import SearchResults from './components/SearchResults'
 import RangePicker from './components/RangePicker'
+import BigButton from '../../elements/BigButton'
+import searching from '../../../store/modules/searching'
 
 const FormPhoto = () => {
   const [openValue, setOpenValue] = useState(false)
@@ -45,6 +47,18 @@ const FormPhoto = () => {
     setOpenImgUploader(false)
   }
 
+  const value = form.watch('value')
+  const hasValue = value && value.trim()
+
+  const onSearchValue = () => {
+    if (!openValue) {
+      setOpenValue(true)
+    }
+    if (hasValue) {
+      searching.searchByValue(value)
+    }
+  }
+
   return (
     <div className="fromPhoto">
       {
@@ -64,7 +78,9 @@ const FormPhoto = () => {
         }} htmlFor="value" className="fromPhoto__el1">
           <SearchIcon/>
           <input
-            ref={form.register}
+            ref={form.register({
+              required: true,
+            })}
             id="value"
             name="value"
             placeholder={
@@ -96,9 +112,10 @@ const FormPhoto = () => {
       >
         <IconUploadImg/>
       </button>
+      <BigButton onClick={onSearchValue} className={["fromPhoto__btn", openValue ? "active" : null].join(' ')}>Search results</BigButton>
       <ImageUploader form={form} open={openImgUploader} setOpen={setOpenImgUploader} />
       <RangePicker open={openDatePicker} />
-      <SearchResults form={form} open={openValue} />
+      <SearchResults hasValue={hasValue} form={form} open={openValue} />
     </div>
   )
 }

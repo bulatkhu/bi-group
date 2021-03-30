@@ -6,7 +6,6 @@ import catalogues from '../../../../store/modules/catalogue'
 import Groups from './components/Groups'
 import './styles.scss'
 import Loader from '../../../../components/elements/Loader'
-import Pagination from './components/Pagination'
 
 const Photos = view(() => {
   const params = useParams()
@@ -28,7 +27,6 @@ const Photos = view(() => {
           ? <Loader />
           : <>
             <Groups/>
-            <Pagination page={params.page || 0}/>
           </>}
       </div>
     </main>

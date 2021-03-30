@@ -1,7 +1,6 @@
 import {store} from '@risingstack/react-easy-state'
 import {get, post} from '../api'
 import {reqErrHandler} from '../../helpers/reqErrHandler'
-import sortPhotos from '../../helpers/sortPhotos'
 
 const catalogues = store({
   photos: [],
@@ -12,25 +11,29 @@ const catalogues = store({
   nextLink: null,
   imageProgress: 0,
   interval: null,
-  sortedByYear: null,
+  offsetCount: 0,
+  process: false,
 
   clearModule() {
     catalogues.photos = []
     catalogues.catalogLoaded = false
+    catalogues.offsetCount =  0
   },
 
   findByImage(formData) {
     return post('/api/search/upload/', formData)
   },
 
-  async getTestImages(page) {
+  async getTestImages() {
     try {
-      const res = await get(`/api/images/`, {  limit: catalogues.limit, offset: catalogues.offset * page })
-      catalogues.sortedByYear = sortPhotos(res.data?.results)
-      catalogues.photos = res.data?.results
+      catalogues.process = true
+      const res = await get(`/api/images/`, {  limit: catalogues.limit, offset: catalogues.offset * catalogues.offsetCount })
+      catalogues.offsetCount = catalogues.offsetCount + 25
+      catalogues.photos = [...catalogues.photos, ...res.data?.results]
       catalogues.prevLink = res.data?.previous
       catalogues.nextLink = res.data?.next
       catalogues.catalogLoaded = true
+      catalogues.process = false
       return res
     } catch (e) {
       const err = reqErrHandler(e)
