@@ -34,7 +34,7 @@ const catalogues = store({
       catalogues.nextLink = res.data?.next
       catalogues.catalogLoaded = true
       catalogues.process = false
-      return res
+      return res.data.results
     } catch (e) {
       const err = reqErrHandler(e)
       console.log('err', err)

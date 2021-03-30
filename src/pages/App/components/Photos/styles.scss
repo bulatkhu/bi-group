@@ -58,6 +58,15 @@
     margin-top: 50px;
   }
 
+  &__masonry {
+    * {
+      outline: none;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
   &__date {
     color: #96A0B5;
     margin-bottom: 40px;
