@@ -5,7 +5,7 @@ import BigButton from '../../../../../../../../components/elements/BigButton'
 import { TextAbstract } from '../../../../../../../../helpers/textCutter'
 import './styles.scss'
 
-const PhotoModal = ({ id, setOpen, img, title }) => {
+const PhotoModal = ({ id, setOpen, img, title, ...rest }) => {
   const history = useHistory()
 
   return (
@@ -29,7 +29,7 @@ const PhotoModal = ({ id, setOpen, img, title }) => {
         onClick={() => {
           history.push({
             pathname: `/app-catalog/${id}`,
-            state: { img, title }
+            state: { img, title, ...rest }
           })
         }}
       >Просмотреть полную информацию</BigButton>

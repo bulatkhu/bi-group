@@ -207,3 +207,28 @@
     }
   }
 }
+
+.photo-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 200px;
+  margin: auto;
+
+
+  &__dot {
+    all: unset;
+    margin: 10px;
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--grey-light);
+    transition: all .3s;
+
+    &.active {
+      background-color: var(--black-main);
+    }
+  }
+}

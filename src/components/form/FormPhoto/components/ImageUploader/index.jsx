@@ -1,15 +1,23 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {view} from '@risingstack/react-easy-state'
 import BigButton from '../../../../elements/BigButton'
-import {useController} from 'react-hook-form'
+import {useController, useForm} from 'react-hook-form'
 import {reqErrHandler} from '../../../../../helpers/reqErrHandler'
 import foundPhotos from '../../../../../store/modules/foundPhotos'
 import { useHistory } from 'react-router-dom'
 import Loader from '../../../../elements/Loader'
 
-const ImageUploader = view(({ open, form }) => {
+const ImageUploader = view(({ open }) => {
   const [base64, setBase64] = useState(null)
   const [process, setProcess] = useState(false)
+
+
+  const form = useForm({
+    defaultValues: {
+      value: '',
+    },
+  })
+
   const { watch, control, handleSubmit, reset } = form
   const history = useHistory()
 
