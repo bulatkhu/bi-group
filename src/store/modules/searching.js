@@ -1,13 +1,28 @@
 import { store } from '@risingstack/react-easy-state'
-import { get } from '../api'
+import {get, post} from '../api'
 import {reqErrHandler} from '../../helpers/reqErrHandler'
+import foundPhotos from './foundPhotos'
 
 const searching = store({
   result: { tags: [], profiles: [] },
   loading: false,
+  chosenAvatar: null,
+  chosenTags: [],
 
   clearModule() {
     searching.result = { tags: [], profiles: [] }
+    searching.loading =  false
+    searching.chosenAvatar =  null
+    searching.chosenTags =  []
+  },
+
+  addSearchTag(tag) {
+    if (searching.chosenTags.includes(tag)) {
+      searching.chosenTags = [...searching.chosenTags.filter((chosenTag) => chosenTag !== tag)]
+    } else {
+      searching.chosenTags = [...searching.chosenTags, tag ]
+    }
+    searching.chosenTags = [...searching.chosenTags]
   },
 
   async searchByValue(value) {
@@ -22,6 +37,24 @@ const searching = store({
     } catch (e) {
       const err = reqErrHandler(e)
       console.log('err', err)
+    }
+  },
+
+  async searchByImgUrl(url) {
+    try {
+      const { data: { request_id } } = await post(`/api/search/request/`, { image_url: url })
+      foundPhotos.checkWorkerProgress(request_id)
+      return {
+        message: request_id,
+        error: false
+      };
+    } catch (e) {
+      const err = reqErrHandler(e)
+      console.log("err", err)
+      return {
+        message: err,
+        error: true
+      }
     }
   },
 

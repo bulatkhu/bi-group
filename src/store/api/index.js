@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs';
 
 export const headers = () => {
   const token = sessionStorage.getItem('accessToken');
@@ -19,6 +20,9 @@ export const get = (url, params) =>
     headers: headers(),
     params,
     data: {},
+    paramsSerializer: params => {
+      return qs.stringify(params, { arrayFormat: "repeat" })
+    }
   })
 
 export const post = (url, payload, params) =>

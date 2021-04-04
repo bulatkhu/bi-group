@@ -272,11 +272,18 @@
 .f-pPhoto {
   &__item {
     border-radius: 8px;
+    cursor: pointer;
     overflow: hidden;
     width: 48px;
     height: 48px;
     min-width: 48px;
+    transition: all .3s ;
     min-height: 48px;
+    background-color: #155A9E;
+
+    &.active {
+      border: 3px solid #155A9E;
+    }
 
     &:not(:last-child) {
       margin-right: 18px;
@@ -317,6 +324,11 @@
     font-weight: 500;
     font-size: 16px;
     cursor: pointer;
+
+    &.active {
+      text-decoration: underline;
+      text-decoration-color: #124f8c;
+    }
 
     &:not(:last-child) {
       margin-bottom: 16px;

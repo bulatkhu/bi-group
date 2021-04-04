@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import UsePortal from '../../../hooks/usePortal'
 import { useMediaQuery } from 'react-responsive'
+import { view } from '@risingstack/react-easy-state'
 // import DayPicker from 'react-day-picker'
 import SearchIcon from '../../SvgIcons/SearchIcon'
 import AnimatedDropdownArrow from '../../elements/AnimatedDropdownArrow'
@@ -14,18 +15,24 @@ import SearchResults from './components/SearchResults'
 import RangePicker from './components/RangePicker'
 import BigButton from '../../elements/BigButton'
 import searching from '../../../store/modules/searching'
+import {useDebounce} from '../../../hooks/useDebounce'
+import {useHistory} from 'react-router-dom'
 
-const FormPhoto = () => {
+const FormPhoto = view(() => {
+  const history = useHistory()
+
   const [openValue, setOpenValue] = useState(false)
   const [openDatePicker, setOpenDatePicker] = useState(false)
   const [openImgUploader, setOpenImgUploader] = useState(false)
+
   const preMobile = useMediaQuery({ query: '(max-width: 992px)' })
 
   const form = useForm({
     defaultValues: {
-      image: null,
+      image: '',
       value: '',
     },
+    mode: 'onChange'
   })
 
   useEffect(() => {
@@ -48,14 +55,31 @@ const FormPhoto = () => {
   }
 
   const value = form.watch('value')
-  const hasValue = value && value.trim()
+  const debouncedValue = useDebounce(value, 500)
+  const hasValue = debouncedValue && debouncedValue.trim()
 
-  const onSearchValue = () => {
+  useEffect(() => {
+
+    if (hasValue) {
+      searching.searchByValue(debouncedValue)
+    } else {
+      searching.clearModule()
+    }
+
+  }, [debouncedValue, hasValue])
+
+  const onSearchValue = async () => {
     if (!openValue) {
       setOpenValue(true)
     }
-    if (hasValue) {
-      searching.searchByValue(value)
+
+    const { error, message } = await searching.searchByImgUrl(searching.chosenAvatar)
+    if (error) {
+      alert("Something went wrong: " + message)
+    } else {
+      console.log("success", message)
+      closeEveryThing()
+      history.push(`/app-found/${message}`)
     }
   }
 
@@ -112,12 +136,23 @@ const FormPhoto = () => {
       >
         <IconUploadImg/>
       </button>
-      <BigButton onClick={onSearchValue} className={["fromPhoto__btn", openValue ? "active" : null].join(' ')}>Search results</BigButton>
+      <BigButton
+        onClick={onSearchValue}
+        disabled={!searching.chosenAvatar}
+        className={
+          [
+            "fromPhoto__btn",
+            openValue
+              ? "active"
+              : null
+          ].join(' ')
+        }
+      >Search results</BigButton>
       <ImageUploader form={form} open={openImgUploader} setOpen={setOpenImgUploader} />
       <RangePicker open={openDatePicker} />
       <SearchResults hasValue={hasValue} form={form} open={openValue} />
     </div>
   )
-}
+})
 
 export default FormPhoto

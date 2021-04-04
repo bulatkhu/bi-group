@@ -5,7 +5,7 @@ import ModalOverlay from '../../../../../../components/modals/ModalOverlay'
 import PhotoModal from './components/PhotoModal'
 
 const PhotoElement = (props) => {
-  const { thumbnail: img, name: title, pk: id } = props.data
+  const { thumbnail: img, name: title, pk: id } = props
   // console.log("props", props.data)
 
   const [open, setOpen] = useState(false)

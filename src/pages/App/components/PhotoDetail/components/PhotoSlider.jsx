@@ -8,7 +8,7 @@ const PhotoSlider = ({ catalog }) => {
 
   const [slide, setSlide] = useState(0)
   const [slides, setSlides] = useState([])
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!slides.length) {
@@ -19,13 +19,21 @@ const PhotoSlider = ({ catalog }) => {
   const allImages = [catalog.thumbnail, ...catalog.images]
 
   useEffect(() => {
-    setLoading(true)
+    if (slide !== 0) {
+      setLoading(true)
+    }
   }, [slide])
 
   useEffect(() => setSlide(0), [params.id])
 
   return (
     <div>
+      <a
+        href={allImages[slide]}
+        rel="noreferrer"
+        target="_blank"
+        className="p-details__btn"
+      >Public button</a>
       <div className="photo-slider">
         {allImages.map((item, index) => (
           <button

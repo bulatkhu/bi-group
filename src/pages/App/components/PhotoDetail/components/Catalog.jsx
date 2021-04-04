@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory  } from "react-router-dom"
-import BigButton from '../../../../../components/elements/BigButton'
+import {useHistory} from 'react-router-dom'
 import AnimatedDropdownArrow from '../../../../../components/elements/AnimatedDropdownArrow'
 import catalogues from '../../../../../store/modules/catalogue'
 import PhotoSlider from './PhotoSlider'
@@ -48,8 +47,6 @@ const Catalog = ({ catalog }) => {
     <div className="p-details__wrapper">
       <h1 className="p-details__title">{catalog?.name}</h1>
       <p className="p-details__date">{catalog?.date?.toLocaleDateString()} год</p>
-      <BigButton className="p-details__btn" light>Public button</BigButton>
-
       <div className="p-details__imgWrapper">
         <button disabled={process} onClick={nextSlide} className="p-slider__btn p-slider__next">
           <AnimatedDropdownArrow />

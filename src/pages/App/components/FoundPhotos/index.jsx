@@ -28,7 +28,7 @@ const FoundPhotos = view(() => {
         <div style={{ height: 10 }} />
         {
           foundPhotos.searching
-            ? <Loader text="Searching..." />
+            ? <Loader small text="Searching..." />
             : <Groups />
         }
       </div>

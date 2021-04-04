@@ -59,6 +59,11 @@
   }
 
   &__masonry {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
     * {
       outline: none;
       &:focus {

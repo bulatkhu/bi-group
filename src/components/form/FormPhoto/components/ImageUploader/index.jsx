@@ -14,7 +14,7 @@ const ImageUploader = view(({ open }) => {
 
   const form = useForm({
     defaultValues: {
-      value: '',
+      image: '',
     },
   })
 
@@ -71,7 +71,6 @@ const ImageUploader = view(({ open }) => {
     } catch (e) {
       setProcess(false)
       const err = reqErrHandler(e)
-      // setError(err)
       alert(err)
       console.log('err', err)
     }

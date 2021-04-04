@@ -1,6 +1,7 @@
 import { store } from '@risingstack/react-easy-state'
 import { get, post } from '../api'
 import { reqErrHandler } from '../../helpers/reqErrHandler'
+import searching from './searching'
 
 const foundPhotos = store({
   searching: false,
@@ -50,11 +51,22 @@ const foundPhotos = store({
           request_id,
           ...date
         }
+
+        console.log("tags", searching.chosenTags)
+
+        if (searching.chosenTags.length) {
+          console.log("add tag to request")
+          params.tags = searching.chosenTags
+        }
+
         const { data } = await get('/api/images/', params)
+
         foundPhotos.searching = false
         foundPhotos.searchResult = data
         foundPhotos.searchResLoaded = true
+
         const sS = JSON.parse(sessionStorage.getItem('results')) || []
+
         sS.push(data)
         if (sS.length > 10) {
           sS.shift()
