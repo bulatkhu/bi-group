@@ -43,10 +43,14 @@ const Catalog = ({ catalog }) => {
     }
   };
 
+  const tags = catalog?.tags && catalog.tags?.length
+    ? <span className="p-details__tags">{catalog.tags.map(tag => tag.name).join(', ')}</span>
+    : "tags were not found"
+
   return (
     <div className="p-details__wrapper">
-      <h1 className="p-details__title">{catalog?.name}</h1>
-      <p className="p-details__date">{catalog?.date?.toLocaleDateString()} год</p>
+      <h1 className="p-details__title"><span>Теги:</span> {tags}</h1>
+      <p className="p-details__date">{catalog?.year} год</p>
       <div className="p-details__imgWrapper">
         <button disabled={process} onClick={nextSlide} className="p-slider__btn p-slider__next">
           <AnimatedDropdownArrow />
