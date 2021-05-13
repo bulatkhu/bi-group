@@ -27,10 +27,11 @@ const searching = store({
 
   async searchByValue(value) {
     try {
+      searching.chosenTags = []
       searching.loading = true
       const results = await Promise.all([
-        get(`/api/search/lookup/tags/`, { search: value, limit: 100, offset: 0 }),
-        get(`/api/search/lookup/profiles/`, { search: value, limit: 100, offset: 0 })
+        get(`/api/search/lookup/tags/`, { search: value, limit: 200, offset: 0 }),
+        get(`/api/search/lookup/profiles/`, { search: value, limit: 200, offset: 0 })
       ])
       searching.result = { tags: results[0]?.data?.results, profiles: results[1]?.data?.results }
       searching.loading = false

@@ -17,6 +17,9 @@ import BigButton from '../../elements/BigButton'
 import searching from '../../../store/modules/searching'
 import {useDebounce} from '../../../hooks/useDebounce'
 import {useHistory} from 'react-router-dom'
+// import foundPhotos from '../../../store/modules/foundPhotos'
+import catalogue from '../../../store/modules/catalogue'
+import foundPhotos from '../../../store/modules/foundPhotos'
 
 const FormPhoto = view(() => {
   const history = useHistory()
@@ -34,6 +37,10 @@ const FormPhoto = view(() => {
     },
     mode: 'onChange'
   })
+
+  // useEffect(() => {
+  //   foundPhotos.getImages();
+  // }, [])
 
   useEffect(() => {
     if (openValue) {
@@ -68,6 +75,12 @@ const FormPhoto = view(() => {
 
   }, [debouncedValue, hasValue])
 
+  const onSearchWithoutAvatar = async () => {
+    closeEveryThing()
+    history.push("/app-catalogues")
+    await catalogue.getTestImages(false);
+  }
+
   const onSearchValue = async () => {
     if (!openValue) {
       setOpenValue(true)
@@ -82,6 +95,9 @@ const FormPhoto = view(() => {
       history.push(`/app-found/${message}`)
     }
   }
+
+  const hasRequiredValues = searching.chosenAvatar || searching.chosenTags.length ||
+    (foundPhotos.searchDateStart &&foundPhotos.searchDateStart &&foundPhotos.searchDateEnd &&foundPhotos.searchDateEnd)
 
   return (
     <div className="fromPhoto">
@@ -137,8 +153,8 @@ const FormPhoto = view(() => {
         <IconUploadImg/>
       </button>
       <BigButton
-        onClick={onSearchValue}
-        disabled={!searching.chosenAvatar}
+        onClick={searching.chosenAvatar ? onSearchValue : onSearchWithoutAvatar}
+        disabled={!hasRequiredValues}
         className={
           [
             "fromPhoto__btn",
@@ -147,7 +163,7 @@ const FormPhoto = view(() => {
               : null
           ].join(' ')
         }
-      >Search results</BigButton>
+      >Поиск</BigButton>
       <ImageUploader form={form} open={openImgUploader} setOpen={setOpenImgUploader} />
       <RangePicker open={openDatePicker} />
       <SearchResults hasValue={hasValue} form={form} open={openValue} />

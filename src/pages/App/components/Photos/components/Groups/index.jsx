@@ -8,7 +8,7 @@ import Loader from '../../../../../../components/elements/Loader'
 // import { Masonry } from 'masonic'
 
 const Groups = view(() => {
-  const hasPhotos = catalogues.photos
+  const hasPhotos = catalogues.photos.length
 
   const makePhotos = () => {
     if (hasPhotos) {

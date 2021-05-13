@@ -27,7 +27,7 @@ const PhotoElement = (props) => {
                 title={title}
                 setOpen={setOpen}
                 id={id}
-                {...props.data}
+                {...props}
               />
             </ModalOverlay>
           </UsePortal>

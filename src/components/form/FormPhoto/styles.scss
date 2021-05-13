@@ -54,12 +54,10 @@
       right: 0;
 
       &.active {
-        top: 0;
         z-index: 20;
-        margin: 0;
-        right: 60px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        margin: 0 0 0 0;
+        right: 0;
+        top: calc(-100% + -10px);
       }
     }
 
@@ -219,6 +217,10 @@
   overflow: hidden;
   visibility: hidden;
   transition: all .3s ease-out;
+
+  //@media (max-width: 992px) {
+  //  top: calc(100% + 65px);
+  //}
 
   @media (max-width: 767px) {
     top: calc(100% + 8px);

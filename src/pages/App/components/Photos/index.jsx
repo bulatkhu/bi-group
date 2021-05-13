@@ -11,7 +11,7 @@ const Photos = view(() => {
   const params = useParams()
 
   useEffect(() => {
-    catalogues.getTestImages(params.page || 0)
+    catalogues.getTestImages()
   }, [params.page])
 
   return (
