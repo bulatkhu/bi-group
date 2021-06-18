@@ -4,10 +4,8 @@ import { IconClose } from '../../../../../../../../components/Icons'
 import BigButton from '../../../../../../../../components/elements/BigButton'
 import './styles.scss'
 
-const PhotoModal = ({ id, setOpen, img, title, ...rest }) => {
-  const history = useHistory()
-
-  console.log("rest", rest)
+const PhotoModal = ({ id, setOpen, img, title, tags, ...rest }) => {
+  const history = useHistory();
 
   return (
     <div className="pModal">
@@ -23,8 +21,8 @@ const PhotoModal = ({ id, setOpen, img, title, ...rest }) => {
          </span>
       </div>
       <div className="pModal__info">
-        {/*<h2 className="pModal__title">{TextAbstract(title, 30)}</h2>*/}
         <p className="pModal__date">Год: {rest.year}</p>
+        <p className="pModal__tag">Теги: <span>{tags.map(tag => tag.name).join(', ')}</span></p>
       </div>
       <BigButton
         onClick={() => {

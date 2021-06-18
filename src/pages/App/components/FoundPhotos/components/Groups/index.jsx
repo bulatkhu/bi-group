@@ -27,6 +27,7 @@ const Groups = view(() => {
               key={index}
               title={photo.name}
               img={photo.thumbnail}
+              tags={photo.tags}
             />
           )}
         </div>

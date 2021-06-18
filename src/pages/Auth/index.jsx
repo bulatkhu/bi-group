@@ -13,8 +13,8 @@ const Auth = () => {
 
   const form = useForm({
     defaultValues: {
-      username: "ext-bakhytzhan@bi.group",
-      password: "dRUD3QK57zWbwNy3",
+      username: "ext-kudainazarov@bi.group",
+      password: "Alex123!Alex123!",
     }
   })
 

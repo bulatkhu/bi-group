@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconClose } from '../../../../../../../../components/Icons'
 
-const PhotoModal = ({ id, setOpen, img }) => {
+const PhotoModal = ({ setOpen, img }) => {
 
   return (
     <div className="pModal">

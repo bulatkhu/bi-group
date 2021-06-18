@@ -12,7 +12,7 @@ const Render = view(({ route }) => {
   if (!route.private) {
 
     if (isAuth) {
-      history.push('/app-catalogues')
+      history.replace('/app-catalogues')
       return null
     }
 

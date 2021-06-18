@@ -61,8 +61,8 @@
 
   &__info {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    //justify-content: space-between;
+    flex-direction: column;
     margin-bottom: 24px;
   }
 
@@ -72,13 +72,17 @@
     color: var(--grey-secondary);
   }
 
-  &__title {
-    font-weight: 600;
-    font-size: 26px;
+  &__tag {
+    font-size: 20px;
     color: #03053D;
+    font-weight: bold;
+
+    span {
+      display: inline-block;
+    }
 
     @media (max-width: 767px) {
-      font-size: 20px;
+      font-size: 16px;
     }
   }
 }

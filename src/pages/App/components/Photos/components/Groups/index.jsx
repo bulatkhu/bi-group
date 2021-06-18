@@ -15,6 +15,8 @@ const Groups = view(() => {
 
       const sortedPhotos = sortPhotos(catalogues.photos)
 
+      console.log("photos", sortedPhotos);
+
       return (
         <>
           {Object.keys(sortedPhotos).map((key, index) => {

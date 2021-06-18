@@ -4,7 +4,7 @@ import './styles.scss'
 import ModalOverlay from '../../../../../../components/modals/ModalOverlay'
 import PhotoModal from './components/PhotoModal'
 
-const PhotoElement = ({ thumbnail: img, name: title, pk: id, year }) => {
+const PhotoElement = ({ thumbnail: img, name: title, pk: id, year, tags }) => {
   const [open, setOpen] = useState(false)
 
   const onShowModal = () => {
@@ -20,6 +20,7 @@ const PhotoElement = ({ thumbnail: img, name: title, pk: id, year }) => {
               setOpen={setOpen}
             >
               <PhotoModal
+                tags={tags}
                 year={year}
                 img={img}
                 title={title}

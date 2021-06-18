@@ -4,7 +4,7 @@ import ModalOverlay from '../../../../../../components/modals/ModalOverlay'
 import PhotoModal from './components/PhotoModal'
 import {TextAbstract} from '../../../../../../helpers/textCutter'
 
-const PhotoElement = ({ img, title, id }) => {
+const PhotoElement = ({ img, title, id, tags }) => {
   const [open, setOpen] = useState(false)
 
   const onShowModal = () => {
@@ -24,6 +24,7 @@ const PhotoElement = ({ img, title, id }) => {
                 img={img}
                 title={title}
                 id={id}
+                tags={tags}
               />
             </ModalOverlay>
           </UsePortal>
