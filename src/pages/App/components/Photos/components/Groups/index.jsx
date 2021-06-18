@@ -15,25 +15,46 @@ const Groups = view(() => {
 
       const sortedPhotos = sortPhotos(catalogues.photos)
 
-      console.log("photos", sortedPhotos);
-
       return (
         <>
-          {Object.keys(sortedPhotos).map((key, index) => {
-            const photos = sortedPhotos[key]
+          {sortedPhotos.map(({ year, photos: photosByTags }, index) => {
 
             return (
               <div key={index}>
-                <p className="photosMain__date">{key} год</p>
-                <div className="photosMain__masonry">
-                  {photos.map((photo, index) => (
-                    <PhotoElement key={index} {...photo} />
-                  ))}
-                </div>
-                {hasPhotos && catalogues.nextLink ? (
-                  <InfiniteLoader onVisited={() => catalogues.getTestImages()}/>
-                ) : <p>No more photos</p>}
-                {catalogues.process && <Loader />}
+                <p className="photosMain__date">{year} год</p>
+                  <>
+                    {Object.keys(photosByTags).map((photoTag, index) => {
+                      const photos = photosByTags[photoTag];
+
+                      return (
+                        <div key={index} className="photosMain-photo">
+                          <div className="photosMain-photo__tagWrapper">
+                            <span className="photosMain-photo__tag">
+                              Тег: <span>{photoTag}</span>
+                            </span>
+                          </div>
+                          <div className="photosMain__masonry">
+                            {photos.map((photo, index) => (
+                              <PhotoElement key={index} {...photo} />
+                            ))}
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </>
+
+                {/*</div>*/}
+                {
+                  catalogues.process
+                    ? <Loader />
+                    : catalogues.error
+                    ? <p className="error">catalogues.error</p>
+                    : hasPhotos && catalogues.nextLink
+                      ? <InfiniteLoader
+                        onVisited={() => catalogues.getTestImages()}
+                      />
+                      : <p>No more photos</p>
+                }
               </div>
             )
           })}

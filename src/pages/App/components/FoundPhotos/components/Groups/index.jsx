@@ -10,17 +10,7 @@ const Groups = view(() => {
 
     if (photos && photos.length) {
       return (
-        // <div className="photosMain__photos">
-        //   {photos.map((photo, index) =>
-        //     <PhotoElement
-        //       id={photo.pk}
-        //       key={index}
-        //       title={photo.name}
-        //       img={photo.thumbnail}
-        //     />
-        //   )}
-        // </div>
-        <div className="masonry-with-columns">
+        <div className="photosMain__masonry">
           {photos.map((photo, index) =>
             <PhotoElement
               id={photo.pk}

@@ -12,6 +12,7 @@
     padding: 0 10px 40px;
   }
 
+
   &__searchPhotos {
     display: flex;
     justify-content: center;
@@ -46,6 +47,17 @@
   }
 }
 
+.photosMain-found {
+
+  &__masonry {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+}
+
 .photosMain {
   text-align: center;
 
@@ -56,13 +68,12 @@
 
   @media (max-width: 576px) {
     margin-top: 50px;
+    padding: 0;
   }
 
   &__masonry {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+    column-count: 4;
+    column-width: 300px;
 
     * {
       outline: none;
@@ -112,6 +123,34 @@
     @media (max-width: 1200px) {
       justify-content: center;
     }
+  }
+}
+
+.photosMain-photo {
+
+  &__tagWrapper {
+    margin: 20px 0;
+    position: sticky;
+    top: 0;
+    left: 50%;
+  }
+
+  &__tag {
+    color: var(--black-main);
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #fff;
+
+    display: inline-block;
+
+    border-radius: 0 0 10px 10px;
+
+    span {
+      display: inline-block;
+      color: var(--grey-secondary);
+    }
+
+    padding: 5px 20px;
   }
 }
 

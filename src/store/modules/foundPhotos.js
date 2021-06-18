@@ -8,6 +8,7 @@ const foundPhotos = store({
   searchResult: null,
   searchDateStart: null,
   searchDateEnd: null,
+  searchProgress: 0,
   searchResLoaded: false,
 
   clearSearching() {
@@ -16,6 +17,7 @@ const foundPhotos = store({
     foundPhotos.ResLoaded = null
     foundPhotos.searchDateStart = null
     foundPhotos.searchDateEnd = null
+    foundPhotos.searchProgress = 0
   },
 
   clearInterval() {
@@ -60,8 +62,9 @@ const foundPhotos = store({
       foundPhotos.searching = true
       foundPhotos.results = null
       foundPhotos.clearInterval()
+      foundPhotos.searchProgress = data.progress
 
-      if (!data?.progress) {
+      if (data?.progress !== 1) {
         foundPhotos.interval = setInterval(async () => {
           await foundPhotos.checkWorkerProgress(request_id)
         }, 10000)
