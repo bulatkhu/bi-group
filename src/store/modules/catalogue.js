@@ -75,6 +75,15 @@ const catalogues = store({
   },
 
   async getCatalogById(id) {
+
+    try {
+      const { data } = await get(`/api/images/${id}`)
+
+      console.log("data", data);
+    } catch (e) {
+
+    }
+
     if (catalogues.photos.length) {
       return catalogues.photos.find((p) => p.pk === +id)
     } else {
