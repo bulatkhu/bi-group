@@ -8,7 +8,7 @@ import Loader from '../../../../components/elements/Loader'
 
 const Photos = view(() => {
   useEffect(() => {
-    catalogues.getTestImages()
+    catalogues.getTestImages(true)
   }, [])
 
   return (

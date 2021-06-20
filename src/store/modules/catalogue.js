@@ -12,8 +12,8 @@ const catalogues = store({
   prevLink: null,
   nextLink: null,
   imageProgress: 0,
-  interval: null,
   process: false,
+  interval: null,
 
   requestsCount: 0,
 

@@ -46,12 +46,12 @@ const Groups = view(() => {
                   catalogues.process
                     ? <Loader />
                       : catalogues.error
-                    ? <p className="error">catalogues.error</p>
-                      : hasPhotos && catalogues.nextLink
-                        ? <InfiniteLoader
-                            onVisited={() => catalogues.getTestImages()}
-                          />
-                        : <p>Фотографий больше нет</p>
+                      ? <p className="error">{catalogues.error}</p>
+                        : hasPhotos && catalogues.nextLink
+                          ? <InfiniteLoader
+                              onVisited={() => catalogues.getTestImages()}
+                            />
+                          : <p>Фотографий больше нет</p>
                 }
               </div>
             )

@@ -11,6 +11,19 @@ const foundPhotos = store({
   searchProgress: 0,
   searchResLoaded: false,
 
+  requestId: "",
+
+  pagination: {
+    photos: [],
+    limit: 20,
+    offset: 0,
+    catalogLoaded: false,
+    prevLink: null,
+    nextLink: null,
+    requestsCount: 0,
+    process: false
+  },
+
   clearSearching() {
     foundPhotos.searching = false
     foundPhotos.searchResult = null
@@ -18,6 +31,18 @@ const foundPhotos = store({
     foundPhotos.searchDateStart = null
     foundPhotos.searchDateEnd = null
     foundPhotos.searchProgress = 0
+
+    foundPhotos.pagination = {
+      photos: [],
+      limit: 20,
+      offset: 0,
+      catalogLoaded: false,
+      prevLink: null,
+      nextLink: null,
+      requestsCount: 0,
+      process: false,
+      end: false
+    }
   },
 
   clearInterval() {
@@ -26,8 +51,39 @@ const foundPhotos = store({
     }
   },
 
+  async getMorePhotos() {
+    try {
+      foundPhotos.pagination.process = true
+      const params = {
+        request_id: foundPhotos.requestId,
+        limit: foundPhotos.pagination.limit,
+      }
+
+      if (foundPhotos.pagination.requestsCount === 0) {
+        params.offset = foundPhotos.pagination.offset
+      } else {
+        foundPhotos.pagination.offset = foundPhotos.pagination.offset + foundPhotos.pagination.limit
+        params.offset = foundPhotos.pagination.offset
+      }
+
+      const { data } = await get(`/api/images/`, params)
+      foundPhotos.pagination.requestsCount = foundPhotos.pagination.requestsCount + 1
+
+      if (!data.results.length) {
+        foundPhotos.pagination.end = true
+      } else {
+        foundPhotos.pagination.photos = [...foundPhotos.pagination.photos, ...data.results];
+      }
+      foundPhotos.pagination.process = false
+    } catch (e) {
+      const err = reqErrHandler(e)
+      console.log("error", err)
+    }
+  },
+
   async checkWorkerProgress(request_id) {
     try {
+      foundPhotos.requestId = request_id;
       foundPhotos.searching = true
       const { data } = await get(`/api/search/request/`, {
         request_id,
