@@ -9,7 +9,10 @@ const Catalog = ({ catalog }) => {
   const [process, setProcess] = useState(false)
   if (!catalog) return null
 
-  const isFirstSlide = catalogues.photos[0].pk === catalog.pk
+
+  const catalogHasPhotos = catalogues.photos.length;
+
+  const isFirstSlide = catalogHasPhotos && catalogues.photos?.[0]?.pk === catalog.pk
 
   const prevSlide = () => {
     try {
@@ -45,23 +48,25 @@ const Catalog = ({ catalog }) => {
 
   const tags = catalog?.tags && catalog.tags?.length
     ? <span className="p-details__tags">{catalog.tags.map(tag => tag.name).join(', ')}</span>
-    : "tags were not found"
+    : "Теги были не найденно"
 
   return (
     <div className="p-details__wrapper">
       <h1 className="p-details__title"><span>Теги:</span> {tags}</h1>
       <p className="p-details__date">{catalog?.year} год</p>
       <div className="p-details__imgWrapper">
-        <button disabled={process} onClick={nextSlide} className="p-slider__btn p-slider__next">
-          <AnimatedDropdownArrow />
-        </button>
+        {catalogHasPhotos ? (
+          <button disabled={process} onClick={nextSlide} className="p-slider__btn p-slider__next">
+            <AnimatedDropdownArrow/>
+          </button>
+        ) : null}
 
         {
-          !isFirstSlide && (
+          (!isFirstSlide && catalogHasPhotos) ? (
             <button onClick={prevSlide} className="p-slider__btn p-slider__prev">
               <AnimatedDropdownArrow />
             </button>
-          )
+          ) : null
         }
 
         <PhotoSlider catalog={catalog} />

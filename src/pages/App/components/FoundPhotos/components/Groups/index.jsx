@@ -16,6 +16,7 @@ const Groups = view(() => {
             <PhotoElement
               id={photo.pk}
               key={index}
+              year={photo.year}
               title={photo.name}
               img={photo.thumbnail}
               tags={photo.tags}

@@ -2,6 +2,7 @@ import Auth from '../pages/Auth'
 import Photos from '../pages/App/components/Photos'
 import PhotoDetail from '../pages/App/components/PhotoDetail'
 import FoundPhotos from '../pages/App/components/FoundPhotos'
+import Categories from '../pages/App/components/Categories'
 
 const Schema = [
   {
@@ -13,7 +14,15 @@ const Schema = [
     },
   },
   {
-    path: '/app-catalogues/:page?',
+    path: '/app-catalogues/catalogues',
+    component: Categories,
+    private: true,
+    state: {
+      found: false,
+    },
+  },
+  {
+    path: '/app-catalogues',
     component: Photos,
     private: true,
     state: {

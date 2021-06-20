@@ -33,7 +33,7 @@ const PhotoSlider = ({ catalog }) => {
         rel="noreferrer"
         target="_blank"
         className="p-details__btn"
-      >Public button</a>
+      >Публичная ссылка</a>
       <div className="photo-slider">
         {allImages.map((item, index) => (
           <button

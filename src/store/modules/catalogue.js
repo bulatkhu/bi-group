@@ -7,19 +7,19 @@ import foundPhotos from './foundPhotos'
 const catalogues = store({
   photos: [],
   limit: 25,
-  offset: 25,
+  offset: 0,
   catalogLoaded: false,
   prevLink: null,
   nextLink: null,
   imageProgress: 0,
   interval: null,
-  offsetCount: 0,
   process: false,
+
+  requestsCount: 0,
 
   clearModule() {
     catalogues.photos = []
     catalogues.catalogLoaded = false
-    catalogues.offsetCount =  0
   },
 
   findByImage(formData) {
@@ -43,11 +43,12 @@ const catalogues = store({
         limit: catalogues.limit,
       }
 
-      if (!payload) {
-        catalogues.offsetCount = 0
+      if (catalogues.requestsCount === 0) {
+        params.offset = catalogues.offset
+      } else {
+        catalogues.offset = catalogues.offset + catalogues.limit
+        params.offset = catalogues.offset
       }
-
-      params.offset = catalogues.offset * catalogues.offsetCount
 
       if (searching.chosenTags.length) {
         params.tags = searching.chosenTags
@@ -55,7 +56,8 @@ const catalogues = store({
 
       catalogues.process = true
       const res = await get(`/api/images/`, params)
-      catalogues.offsetCount = catalogues.offsetCount + 25
+
+      catalogues.requestsCount = catalogues.requestsCount + 1
 
       if (payload) {
         catalogues.photos = [...catalogues.photos, ...res.data?.results]
@@ -77,18 +79,11 @@ const catalogues = store({
   async getCatalogById(id) {
 
     try {
-      const { data } = await get(`/api/images/${id}`)
-
-      console.log("data", data);
+      const { data } = await get(`/api/images/${id}/`)
+      return [data, null];
     } catch (e) {
-
-    }
-
-    if (catalogues.photos.length) {
-      return catalogues.photos.find((p) => p.pk === +id)
-    } else {
-      await catalogues.getTestImages();
-      return catalogues.photos.find((p) => p.pk === +id)
+      const err = reqErrHandler(e);
+      return [null, err];
     }
   },
 })

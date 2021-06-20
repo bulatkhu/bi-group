@@ -3,7 +3,7 @@ import UsePortal from '../../../../../../hooks/usePortal'
 import ModalOverlay from '../../../../../../components/modals/ModalOverlay'
 import PhotoModal from '../../../Photos/components/PhotoElement/components/PhotoModal'
 
-const PhotoElement = ({ img, title, id, tags }) => {
+const PhotoElement = ({ img, title, id, tags, year }) => {
   const [open, setOpen] = useState(false)
 
   const onShowModal = () => {
@@ -19,6 +19,7 @@ const PhotoElement = ({ img, title, id, tags }) => {
               setOpen={setOpen}
             >
               <PhotoModal
+                year={year}
                 setOpen={setOpen}
                 img={img}
                 title={title}

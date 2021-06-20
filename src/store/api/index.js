@@ -5,11 +5,9 @@ export const headers = () => {
   const token = sessionStorage.getItem('accessToken');
 
   let Authorization = null;
-
   if (token) {
     Authorization = `Bearer ${token}`;
   }
-
   const others = {};
 
   return Authorization ? {Authorization, ...others} : others;

@@ -26,34 +26,6 @@ const foundPhotos = store({
     }
   },
 
-  async getImages() {
-    try {
-      const date = {}
-      if (foundPhotos.searchDateStart) {
-        date.start_year = new Date(foundPhotos.searchDateStart).getFullYear()
-        date.start_month = new Date(foundPhotos.searchDateStart).getMonth() + 1
-      }
-      if (foundPhotos.searchDateEnd) {
-        date.end_year = new Date(foundPhotos.searchDateEnd).getFullYear()
-        date.end_month = new Date(foundPhotos.searchDateEnd).getMonth() + 1
-      }
-      const params = {
-        ...date
-      }
-      if (searching.chosenTags.length) {
-        params.tags = searching.chosenTags
-      }
-
-      const { data } = await get('/api/images/', params)
-
-      console.log("data", data)
-    } catch (e) {
-      const err = reqErrHandler(e)
-      console.log("err", err)
-      return err
-    }
-  },
-
   async checkWorkerProgress(request_id) {
     try {
       foundPhotos.searching = true

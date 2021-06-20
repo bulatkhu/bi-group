@@ -90,10 +90,10 @@ const ImageUploader = view(({ open }) => {
       />
       <div className="f-i__date">
         {foundPhotos.searchDateStart && (
-          <span>Date start: {new Date(foundPhotos.searchDateStart).toLocaleDateString()}</span>
+          <span>Период с: {new Date(foundPhotos.searchDateStart).toLocaleDateString()}</span>
         )}
         {foundPhotos.searchDateEnd && (
-          <span>Date end: {new Date(foundPhotos.searchDateEnd).toLocaleDateString()}</span>
+          <span>Период до: {new Date(foundPhotos.searchDateEnd).toLocaleDateString()}</span>
         )}
       </div>
       { base64 ? (
@@ -107,7 +107,7 @@ const ImageUploader = view(({ open }) => {
                 <>
                 </>
               ) : (
-                <p>Nothing was found</p>
+                <p>Ничего не найденно</p>
               )}
             </div>
           )}
@@ -117,7 +117,7 @@ const ImageUploader = view(({ open }) => {
                 disabled={process || foundPhotos.searching}
                 onClick={handleSubmit(onSearchByImage)}
                 className="f-i__searchBtn"
-              >{process ? "...Loading" : "Search by image"}</BigButton>
+              >{process ? "Загрузка..." : "Искать по фотографии"}</BigButton>
             )}
           </div>
         </div>
@@ -126,8 +126,8 @@ const ImageUploader = view(({ open }) => {
 
           <div className="f-i__description">
 
-            <BigButton tag="span" light>Choose image(s)</BigButton>
-            <p className="f-i__types">Png and jpg only</p>
+            <BigButton tag="span" light>Выберите фото</BigButton>
+            <p className="f-i__types">Только png и jpg</p>
 
           </div>
 

@@ -72,8 +72,17 @@
   }
 
   &__masonry {
-    column-count: 4;
-    column-width: 300px;
+    //display: grid;
+    //grid-template-columns: 1fr 1fr 1fr 1fr;
+    //column-gap: 15px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    //column-count: 4;
+    //column-width: 300px;
 
     * {
       outline: none;

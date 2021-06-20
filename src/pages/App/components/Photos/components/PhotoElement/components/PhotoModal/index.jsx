@@ -25,16 +25,16 @@ const PhotoModal = ({ id, setOpen, img, title, tags, btn = true, ...rest }) => {
         <p className="pModal__tag">Теги: <span>{tags.map(tag => tag.name).join(', ')}</span></p>
       </div>
 
-      {btn && (
-        <BigButton
-          onClick={() => {
-            history.push({
-              pathname: `/app-catalog/${id}`,
-              state: { img, title, ...rest }
-            })
-          }}
-        >Просмотреть полную информацию</BigButton>
-      )}
+
+      <BigButton
+        onClick={() => {
+          history.push({
+            pathname: `/app-catalog/${id}`,
+            state: { img, title, ...rest }
+          })
+        }}
+      >Просмотреть полную информацию</BigButton>
+
     </div>
   )
 }
