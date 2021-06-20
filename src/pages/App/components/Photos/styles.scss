@@ -138,6 +138,7 @@
 .photosMain-photo {
 
   &__tagWrapper {
+    z-index: 1;
     margin: 20px 0;
     position: sticky;
     top: 0;

@@ -16,17 +16,19 @@ const catalogues = store({
   interval: null,
 
   requestsCount: 0,
+  additionalParams: {},
 
   clearModule() {
     catalogues.photos = []
     catalogues.catalogLoaded = false
+    catalogues.offset = 0
   },
 
   findByImage(formData) {
     return post('/api/search/upload/', formData)
   },
 
-  async getTestImages(payload = true) {
+  async getTestImages(payload = true, additionalParams) {
     try {
       const date = {}
       if (foundPhotos.searchDateStart) {
@@ -38,9 +40,22 @@ const catalogues = store({
         date.end_month = new Date(foundPhotos.searchDateEnd).getMonth() + 1
       }
 
-      const params = {
+      let params = {
         ...date,
         limit: catalogues.limit,
+      }
+
+      if (typeof additionalParams === 'object') {
+        catalogues.additionalParams = additionalParams;
+        params = {
+          ...params,
+          ...catalogues.additionalParams,
+        }
+      } else if (catalogues.additionalParams) {
+        params = {
+          ...params,
+          ...catalogues.additionalParams,
+        }
       }
 
       if (catalogues.requestsCount === 0) {

@@ -24,7 +24,7 @@ const Auth = () => {
     const res = await auth.login(data)
     if (res === true) {
       auth.auth()
-      history.push('/app-catalogues')
+      history.push('/app-catalogues/catalogues')
       console.log('res', res)
     } else {
       setError(res)
