@@ -42,8 +42,6 @@ const Groups = view(() => {
                       )
                     })}
                   </>
-
-                {/*</div>*/}
                 {
                   catalogues.process
                     ? <Loader />
@@ -53,7 +51,7 @@ const Groups = view(() => {
                       ? <InfiniteLoader
                         onVisited={() => catalogues.getTestImages()}
                       />
-                      : <p>No more photos</p>
+                      : <p>Фотографий больше нет</p>
                 }
               </div>
             )

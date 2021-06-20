@@ -88,7 +88,7 @@ const FormPhoto = view(() => {
 
     const { error, message } = await searching.searchByImgUrl(searching.chosenAvatar)
     if (error) {
-      alert("Something went wrong: " + message)
+      alert("Что то пошло не так: " + message)
     } else {
       console.log("success", message)
       closeEveryThing()
@@ -125,8 +125,8 @@ const FormPhoto = view(() => {
             name="value"
             placeholder={
               !preMobile
-                ? "Search by person name or event"
-                : "Search"
+                ? "Найти по имени или по мероприятию"
+                : "Искать"
             } type="text"/>
         </label>
         <button onClick={() => {
@@ -135,7 +135,7 @@ const FormPhoto = view(() => {
         }} className="fromPhoto__el2">
           <div className="datePicker">
           <span className="datePicker__name">
-              Choose date
+              Выбрать дату
           </span>
             <AnimatedDropdownArrow
               className={openDatePicker ? 'active' : null}

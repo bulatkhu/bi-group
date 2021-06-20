@@ -56,10 +56,10 @@ const foundPhotos = store({
 
   async checkWorkerProgress(request_id) {
     try {
+      foundPhotos.searching = true
       const { data } = await get(`/api/search/request/`, {
         request_id,
       })
-      foundPhotos.searching = true
       foundPhotos.results = null
       foundPhotos.clearInterval()
       foundPhotos.searchProgress = data.progress

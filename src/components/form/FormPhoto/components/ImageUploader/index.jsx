@@ -99,7 +99,7 @@ const ImageUploader = view(({ open }) => {
       { base64 ? (
         <div className="f-i__wrapUploaded">
           <p className="f-i__imageName">{image?.name}</p>
-          {foundPhotos.searching && <Loader text="Searching, just a moment" small />}
+          {foundPhotos.searching && <Loader text={`Идет загрузка, ${(foundPhotos.searchProgress * 100).toFixed(2)}%`} small />}
           <img className="f-i__uploaded" src={base64} alt="uploaded"/>
           {!foundPhotos.searching && foundPhotos.searchResult && (
             <div style={{ textAlign: "center", marginBottom: 20, }}>

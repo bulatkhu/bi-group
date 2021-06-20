@@ -24,7 +24,6 @@ const PhotoElement = ({ img, title, id, tags }) => {
                 title={title}
                 id={id}
                 tags={tags}
-
                 btn={false}
               />
             </ModalOverlay>

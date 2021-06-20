@@ -2,6 +2,7 @@ import React from 'react'
 import { view } from '@risingstack/react-easy-state'
 import PhotoElement from '../PhotoElement'
 import foundPhotos from '../../../../../../store/modules/foundPhotos'
+import Loader from '../../../../../../components/elements/Loader'
 
 const Groups = view(() => {
 
@@ -22,8 +23,10 @@ const Groups = view(() => {
           )}
         </div>
       )
+    } if (foundPhotos.searching) {
+      return <Loader text="Загрузка" />
     } else {
-      return <p>No photo found</p>
+      return <p>Фото не найдены</p>
     }
   }
 

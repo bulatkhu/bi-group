@@ -43,7 +43,7 @@ const PhotoSlider = ({ catalog }) => {
           />
         ))}
       </div>
-      {loading && <Loader small>...Loading</Loader>}
+      {loading && <Loader small>Загрузка...</Loader>}
       <ResizeImage setLoading={setLoading} img={allImages[slide]} alt={catalog?.name}/>
     </div>
   );

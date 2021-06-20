@@ -24,7 +24,7 @@ const Info = view(() => {
           auth.user?.avatar ? (
             <img src={auth.user.avatar} alt="avatar"/>
           ) : (
-            <p className="profile-info__noPhoto flex-center">No photo</p>
+            <p className="profile-info__noPhoto flex-center">Нет фото</p>
           )
         }
       </span>
