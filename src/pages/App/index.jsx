@@ -13,6 +13,8 @@ const App = () => {
       auth.auth()
       init.current = true
     }
+
+    auth.updateRefreshToken();
   },[])
 
   return (
