@@ -8,7 +8,7 @@ const catalogPreview = store({
   offset: 0,
   loading: false,
 
-  catalog: [null, null],
+  catalog: [[], null],
 
   async getCatalogPreview() {
     try {
@@ -23,15 +23,14 @@ const catalogPreview = store({
         params.search = catalogPreview.search
       }
 
-      const { data } = await get('/api/search/lookup/tags/', params)
+      const { data: { results } } = await get('/api/images/tags/groups/', params)
 
       catalogPreview.loading = false;
-      catalogPreview.catalog = [data, null];
+      catalogPreview.catalog = [results, null];
     } catch (e) {
       const err = reqErrHandler(e);
-
       catalogPreview.loading = false;
-      catalogPreview.catalog = [null, err];
+      catalogPreview.catalog = [[], err];
     }
   },
 

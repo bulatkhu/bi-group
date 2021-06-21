@@ -1,5 +1,32 @@
 .categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0;
+  margin-top: 40px;
 
+  @media (max-width: 1500px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+  }
+
+  @media (max-width: 724px) {
+    margin-top: 55px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  &__masonry {
+
+  }
 }
 
 .categories-photo-item {
@@ -9,21 +36,37 @@
     cursor: pointer;
     color: #fff;
     position: absolute;
-    bottom: 24px;
+    //bottom: 24px;
     left: 32px;
+
+    font-size: 10px;
+
+    @media (max-width: 992px) {
+      left: 10px;
+      font-size: 8px;
+    }
+
+    @media (max-width: 724px) {
+      font-size: 6px;
+    }
   }
 
   &__tag {
     font-weight: 600;
-    font-size: 26px;
+    font-size: 2.6em;
   }
 
   &__text {
     margin-bottom: 8px;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 2em;
+
+    @media (max-width: 992px) {
+      margin-bottom: 4px;
+    }
 
     span {
+      display: inline-block;
       padding: 4px 8px;
       background: rgba(255, 255, 255, 0.16);
       border-radius: 6px;
