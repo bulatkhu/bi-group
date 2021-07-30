@@ -1,5 +1,4 @@
 import React, {
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -20,10 +19,6 @@ const CategoryItem = ({ queryTags, img, tags, name }) => {
     return () =>
       window.removeEventListener('resize', updateSize)
   }, [refImgHeight.current?.height])
-
-  useEffect(() => {
-    updateSize()
-  }, [])
 
   const style = {}
 
@@ -49,7 +44,13 @@ const CategoryItem = ({ queryTags, img, tags, name }) => {
         </p>
       </div>
 
-      <img ref={refImgHeight} src={img} alt="tag" />
+      <img
+        onLoadStart={updateSize}
+        onLoad={updateSize}
+        ref={refImgHeight}
+        src={img}
+        alt="tag"
+      />
     </Link>
   )
 }

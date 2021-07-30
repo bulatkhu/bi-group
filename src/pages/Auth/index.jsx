@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom'
 import auth from '../../store/modules/auth'
 import FormInput from '../../components/form/FormInput'
 import BigButton from '../../components/elements/BigButton'
-import './styles.scss'
+import classes from './styles.module.scss'
+import clsx from 'clsx'
 
 const Auth = () => {
   const [process, setProcess] = useState(false)
@@ -34,20 +35,30 @@ const Auth = () => {
 
   return (
     <div
-      className="auth"
+      className={classes.auth}
       style={{
         backgroundImage: 'url(/images/auth/bg.jpg)',
       }}
     >
-      <form className="auth__wrapper">
-        <div className="auth__top">
-          <h2 className="auth__title">Авторизоваться</h2>
-          <p className="auth__subTitle">
+      <form className={classes.auth__wrapper}>
+        <div className={classes.auth__top}>
+          <h2 className={classes.auth__title}>
+            Авторизоваться
+          </h2>
+          <p className={classes.auth__subTitle}>
             Войдите для просмота фотогалереи
           </p>
         </div>
-        <div className="auth__middle authMid">
-          <label htmlFor="email" className="authMid__label">
+        <div
+          className={clsx(
+            classes.auth__middle,
+            classes.authMid
+          )}
+        >
+          <label
+            htmlFor="email"
+            className={classes.authMid__label}
+          >
             Корпоративная почта
           </label>
           <FormInput
@@ -59,7 +70,7 @@ const Auth = () => {
           <div style={{ height: 16 }} />
           <label
             htmlFor="password"
-            className="authMid__label"
+            className={classes.authMid__label}
           >
             Пароль
           </label>
@@ -71,8 +82,8 @@ const Auth = () => {
             id="password"
           />
         </div>
-        {error && <p className="error">{error}</p>}
-        <div className="auth__bottom authBottom">
+        {error && <p className={classes.error}>{error}</p>}
+        <div className={classes.auth__bottom}>
           <BigButton
             disabled={process}
             onClick={form.handleSubmit(onFormSubmit)}

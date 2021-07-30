@@ -18,10 +18,10 @@ const Groups = view(() => {
       return (
         <div>
           <div className="photosMain__masonry">
-            {allPhotos.map((photo, index) => (
+            {allPhotos.map((photo) => (
               <PhotoElement
                 id={photo.pk}
-                key={index}
+                key={photo.pk}
                 year={photo.year}
                 title={photo.name}
                 img={photo.thumbnail}

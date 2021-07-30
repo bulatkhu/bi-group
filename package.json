@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "axios-oauth-client": "^1.4.0",
     "axios-token-interceptor": "^0.2.0",
+    "clsx": "^1.1.1",
     "date-fns": "^2.19.0",
     "http-proxy-middleware": "^1.0.6",
     "masonic": "^3.4.1",

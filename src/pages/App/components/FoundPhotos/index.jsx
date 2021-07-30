@@ -14,7 +14,7 @@ const FoundPhotos = view(() => {
       foundPhotos.checkWorkerProgress(params?.request_id)
     }
 
-    return () => foundPhotos.clearSearching()
+    return foundPhotos.clearSearching
   }, [params])
 
   return (

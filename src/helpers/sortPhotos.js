@@ -11,24 +11,16 @@ const sortObject = (obj) => {
 
 const getAllUniqueTagsByPhotoGroup = (photos) => {
   const allTagsSetter = new Set()
-
-  allTagsSetter.add('no_tag')
-
   photos.forEach((photo) => {
     photo.tags.forEach(({ name }) =>
       allTagsSetter.add(name)
     )
   })
-  // allTagsSetter.forEach(tag => allTags.push(tag));
-
   return Array.from(allTagsSetter)
 }
 
 const sortPhotos = (photos) => {
   if (!photos || !photos?.length) return {}
-
-  console.log('photos', photos)
-
   const sorted = {}
   try {
     photos.forEach((photo) => {
@@ -43,7 +35,7 @@ const sortPhotos = (photos) => {
 
     return Object.keys(sortedPhotos).map((key) => {
       const photosByTags = {
-        no_tag: [],
+        noTag: [],
       }
       const photos = sortedPhotos[key]
 
@@ -54,11 +46,15 @@ const sortPhotos = (photos) => {
       })
 
       photos.forEach((photo) => {
-        photo.tags.forEach(({ name }) => {
-          if (photosByTags.hasOwnProperty(name)) {
-            photosByTags[name].push(photo)
-          }
-        })
+        if (photo.tags.length) {
+          return photo.tags.forEach(({ name }) => {
+            if (photosByTags.hasOwnProperty(name)) {
+              photosByTags[name].push(photo)
+            }
+          })
+        }
+
+        photosByTags.noTag.push(photo)
       })
 
       return {
