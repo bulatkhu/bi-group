@@ -10,5 +10,5 @@ export const scrollBodyHandler = {
     this.body.classList.contains('scroll-locked')
       ? this.body.classList.remove('scroll-locked')
       : this.body.classList.add('scroll-locked')
-  }
+  },
 }

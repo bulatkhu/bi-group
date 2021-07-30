@@ -15,30 +15,25 @@ const PhotoDetail = view(() => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    catalogues.getCatalogById(id)
-      .then(([ data, err ]) => {
-        if (err)  return setError(err)
-        if (!data) return setNotFound(true)
+    catalogues.getCatalogById(id).then(([data, err]) => {
+      if (err) return setError(err)
+      if (!data) return setNotFound(true)
 
-        setCatalog(data)
-      })
-  },[id])
+      setCatalog(data)
+    })
+  }, [id])
 
   const makeCatalog = () => {
     if (catalog) {
-      return (
-        <Catalog catalog={catalog} />
-      )
+      return <Catalog catalog={catalog} />
     } else {
       return (
         <div>
           {error && <p className="error">Error: {error}</p>}
           <Loader small>
-            {
-              notFound
-                ? 'Фотография не найденна'
-                : 'Загрузка'
-            }
+            {notFound
+              ? 'Фотография не найденна'
+              : 'Загрузка'}
           </Loader>
         </div>
       )
@@ -48,18 +43,19 @@ const PhotoDetail = view(() => {
   return (
     <>
       <div className="p-details__top flex-center">
-        <button onClick={() => {
-          history.push("/app-catalogues")
-        }} className="p-details__goBack">
+        <button
+          onClick={() => {
+            history.push('/app-catalogues')
+          }}
+          className="p-details__goBack"
+        >
           <span className="p-details__arrow">
             <AnimatedDropdownArrow />
           </span>
           Назад
         </button>
       </div>
-      <div className="p-details">
-        {makeCatalog()}
-      </div>
+      <div className="p-details">{makeCatalog()}</div>
     </>
   )
 })

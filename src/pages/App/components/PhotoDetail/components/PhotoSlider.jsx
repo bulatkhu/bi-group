@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import ResizeImage from './ResizeImage'
 import Loader from '../../../../../components/elements/Loader'
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 const PhotoSlider = ({ catalog }) => {
-  const params = useParams();
+  const params = useParams()
 
   const [slide, setSlide] = useState(0)
   const [slides, setSlides] = useState([])
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (!slides.length) {
@@ -33,20 +33,29 @@ const PhotoSlider = ({ catalog }) => {
         rel="noreferrer"
         target="_blank"
         className="p-details__btn"
-      >Публичная ссылка</a>
+      >
+        Публичная ссылка
+      </a>
       <div className="photo-slider">
         {allImages.map((item, index) => (
           <button
             key={index}
             onClick={() => setSlide(index)}
-            className={["photo-slider__dot", slide === index && "active"].join(' ')}
+            className={[
+              'photo-slider__dot',
+              slide === index && 'active',
+            ].join(' ')}
           />
         ))}
       </div>
       {loading && <Loader small>Загрузка...</Loader>}
-      <ResizeImage setLoading={setLoading} img={allImages[slide]} alt={catalog?.name}/>
+      <ResizeImage
+        setLoading={setLoading}
+        img={allImages[slide]}
+        alt={catalog?.name}
+      />
     </div>
-  );
-};
+  )
+}
 
-export default PhotoSlider;
+export default PhotoSlider

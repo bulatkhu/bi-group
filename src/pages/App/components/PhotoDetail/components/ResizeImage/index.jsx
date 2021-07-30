@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
-import {IconScaleMinus, IconScalePlus} from '../../../../../../components/Icons'
+import {
+  IconScaleMinus,
+  IconScalePlus,
+} from '../../../../../../components/Icons'
 
 const ResizeImage = ({ img, alt, setLoading }) => {
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(1)
 
   return (
     <>
@@ -13,10 +16,16 @@ const ResizeImage = ({ img, alt, setLoading }) => {
               {(scale * 100).toFixed(0)}%
             </button>
           )}
-          <button className="p-details__btnScale plus flex-center" onClick={() => setScale(prev => prev + 0.1)} >
+          <button
+            className="p-details__btnScale plus flex-center"
+            onClick={() => setScale((prev) => prev + 0.1)}
+          >
             <IconScalePlus />
           </button>
-          <button className="p-details__btnScale flex-center" onClick={() => setScale(prev => prev - 0.1)} >
+          <button
+            className="p-details__btnScale flex-center"
+            onClick={() => setScale((prev) => prev - 0.1)}
+          >
             <IconScaleMinus />
           </button>
           <img

@@ -11,7 +11,7 @@ const foundPhotos = store({
   searchProgress: 0,
   searchResLoaded: false,
 
-  requestId: "",
+  requestId: '',
 
   pagination: {
     photos: [],
@@ -21,7 +21,7 @@ const foundPhotos = store({
     prevLink: null,
     nextLink: null,
     requestsCount: 0,
-    process: false
+    process: false,
   },
 
   clearSearching() {
@@ -41,7 +41,7 @@ const foundPhotos = store({
       nextLink: null,
       requestsCount: 0,
       process: false,
-      end: false
+      end: false,
     }
   },
 
@@ -62,28 +62,34 @@ const foundPhotos = store({
       if (foundPhotos.pagination.requestsCount === 0) {
         params.offset = foundPhotos.pagination.offset
       } else {
-        foundPhotos.pagination.offset = foundPhotos.pagination.offset + foundPhotos.pagination.limit
+        foundPhotos.pagination.offset =
+          foundPhotos.pagination.offset +
+          foundPhotos.pagination.limit
         params.offset = foundPhotos.pagination.offset
       }
 
       const { data } = await get(`/api/images/`, params)
-      foundPhotos.pagination.requestsCount = foundPhotos.pagination.requestsCount + 1
+      foundPhotos.pagination.requestsCount =
+        foundPhotos.pagination.requestsCount + 1
 
       if (!data.results.length) {
         foundPhotos.pagination.end = true
       } else {
-        foundPhotos.pagination.photos = [...foundPhotos.pagination.photos, ...data.results];
+        foundPhotos.pagination.photos = [
+          ...foundPhotos.pagination.photos,
+          ...data.results,
+        ]
       }
       foundPhotos.pagination.process = false
     } catch (e) {
       const err = reqErrHandler(e)
-      console.log("error", err)
+      console.log('error', err)
     }
   },
 
   async checkWorkerProgress(request_id) {
     try {
-      foundPhotos.requestId = request_id;
+      foundPhotos.requestId = request_id
       foundPhotos.searching = true
       const { data } = await get(`/api/search/request/`, {
         request_id,
@@ -99,22 +105,31 @@ const foundPhotos = store({
       } else {
         const date = {}
         if (foundPhotos.searchDateStart) {
-          date.start_year = new Date(foundPhotos.searchDateStart).getFullYear()
-          date.start_month = new Date(foundPhotos.searchDateStart).getMonth() + 1
+          date.start_year = new Date(
+            foundPhotos.searchDateStart
+          ).getFullYear()
+          date.start_month =
+            new Date(
+              foundPhotos.searchDateStart
+            ).getMonth() + 1
         }
         if (foundPhotos.searchDateEnd) {
-          date.end_year = new Date(foundPhotos.searchDateEnd).getFullYear()
-          date.end_month = new Date(foundPhotos.searchDateEnd).getMonth() + 1
+          date.end_year = new Date(
+            foundPhotos.searchDateEnd
+          ).getFullYear()
+          date.end_month =
+            new Date(foundPhotos.searchDateEnd).getMonth() +
+            1
         }
         const params = {
           request_id,
-          ...date
+          ...date,
         }
 
-        console.log("tags", searching.chosenTags)
+        console.log('tags', searching.chosenTags)
 
         if (searching.chosenTags.length) {
-          console.log("add tag to request")
+          console.log('add tag to request')
           params.tags = searching.chosenTags
         }
 
@@ -124,13 +139,18 @@ const foundPhotos = store({
         foundPhotos.searchResult = data
         foundPhotos.searchResLoaded = true
 
-        const sS = JSON.parse(sessionStorage.getItem('results')) || []
+        const sS =
+          JSON.parse(sessionStorage.getItem('results')) ||
+          []
 
         sS.push(data)
         if (sS.length > 10) {
           sS.shift()
         }
-        sessionStorage.setItem('results', JSON.stringify(sS))
+        sessionStorage.setItem(
+          'results',
+          JSON.stringify(sS)
+        )
         foundPhotos.clearInterval()
       }
 

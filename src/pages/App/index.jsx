@@ -14,8 +14,8 @@ const App = () => {
       init.current = true
     }
 
-    auth.updateRefreshToken();
-  },[])
+    auth.updateRefreshToken()
+  }, [])
 
   return (
     <div className="app">

@@ -1,6 +1,6 @@
-import {store} from '@risingstack/react-easy-state'
-import {get, post} from '../api'
-import {reqErrHandler} from '../../helpers/reqErrHandler'
+import { store } from '@risingstack/react-easy-state'
+import { get, post } from '../api'
+import { reqErrHandler } from '../../helpers/reqErrHandler'
 import searching from './searching'
 import foundPhotos from './foundPhotos'
 
@@ -32,12 +32,19 @@ const catalogues = store({
     try {
       const date = {}
       if (foundPhotos.searchDateStart) {
-        date.start_year = new Date(foundPhotos.searchDateStart).getFullYear()
-        date.start_month = new Date(foundPhotos.searchDateStart).getMonth() + 1
+        date.start_year = new Date(
+          foundPhotos.searchDateStart
+        ).getFullYear()
+        date.start_month =
+          new Date(foundPhotos.searchDateStart).getMonth() +
+          1
       }
       if (foundPhotos.searchDateEnd) {
-        date.end_year = new Date(foundPhotos.searchDateEnd).getFullYear()
-        date.end_month = new Date(foundPhotos.searchDateEnd).getMonth() + 1
+        date.end_year = new Date(
+          foundPhotos.searchDateEnd
+        ).getFullYear()
+        date.end_month =
+          new Date(foundPhotos.searchDateEnd).getMonth() + 1
       }
 
       let params = {
@@ -46,7 +53,7 @@ const catalogues = store({
       }
 
       if (typeof additionalParams === 'object') {
-        catalogues.additionalParams = additionalParams;
+        catalogues.additionalParams = additionalParams
         params = {
           ...params,
           ...catalogues.additionalParams,
@@ -61,7 +68,8 @@ const catalogues = store({
       if (catalogues.requestsCount === 0) {
         params.offset = catalogues.offset
       } else {
-        catalogues.offset = catalogues.offset + catalogues.limit
+        catalogues.offset =
+          catalogues.offset + catalogues.limit
         params.offset = catalogues.offset
       }
 
@@ -72,10 +80,14 @@ const catalogues = store({
       catalogues.process = true
       const res = await get(`/api/images/`, params)
 
-      catalogues.requestsCount = catalogues.requestsCount + 1
+      catalogues.requestsCount =
+        catalogues.requestsCount + 1
 
       if (payload) {
-        catalogues.photos = [...catalogues.photos, ...res.data?.results]
+        catalogues.photos = [
+          ...catalogues.photos,
+          ...res.data?.results,
+        ]
       } else {
         catalogues.photos = [...res.data?.results]
       }
@@ -92,13 +104,12 @@ const catalogues = store({
   },
 
   async getCatalogById(id) {
-
     try {
       const { data } = await get(`/api/images/${id}/`)
-      return [data, null];
+      return [data, null]
     } catch (e) {
-      const err = reqErrHandler(e);
-      return [null, err];
+      const err = reqErrHandler(e)
+      return [null, err]
     }
   },
 })

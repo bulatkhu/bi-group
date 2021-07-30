@@ -1,8 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react'
-import {view} from '@risingstack/react-easy-state'
+import React, {
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
+import { view } from '@risingstack/react-easy-state'
 import BigButton from '../../../../elements/BigButton'
-import {useController, useForm} from 'react-hook-form'
-import {reqErrHandler} from '../../../../../helpers/reqErrHandler'
+import { useController, useForm } from 'react-hook-form'
+import { reqErrHandler } from '../../../../../helpers/reqErrHandler'
 import foundPhotos from '../../../../../store/modules/foundPhotos'
 import { useHistory } from 'react-router-dom'
 import Loader from '../../../../elements/Loader'
@@ -10,7 +14,6 @@ import Loader from '../../../../elements/Loader'
 const ImageUploader = view(({ open }) => {
   const [base64, setBase64] = useState(null)
   const [process, setProcess] = useState(false)
-
 
   const form = useForm({
     defaultValues: {
@@ -31,18 +34,18 @@ const ImageUploader = view(({ open }) => {
 
   const { field } = useController({
     control,
-    name: "image",
-  });
+    name: 'image',
+  })
 
   const onImageUpload = useCallback(
     (e) => {
       if (e.target.files.length) {
-        field.onChange(e.target.files[0]);
-        e.target.value = null;
+        field.onChange(e.target.files[0])
+        e.target.value = null
       }
     },
     [field]
-  );
+  )
 
   const image = watch('image', false)
 
@@ -57,16 +60,20 @@ const ImageUploader = view(({ open }) => {
     }
   }, [image])
 
-  const onSearchByImage = async data => {
+  const onSearchByImage = async (data) => {
     setProcess(true)
     const formData = new FormData()
     formData.append('image', data.image)
 
     try {
       const res = await foundPhotos.findByImage(formData)
-      const result = await foundPhotos.searchImageByUrl(res.data?.image)
+      const result = await foundPhotos.searchImageByUrl(
+        res.data?.image
+      )
       setProcess(false)
-      await foundPhotos.checkWorkerProgress(result.data?.request_id)
+      await foundPhotos.checkWorkerProgress(
+        result.data?.request_id
+      )
       history.push(`/app-found/${result.data?.request_id}`)
     } catch (e) {
       setProcess(false)
@@ -74,11 +81,12 @@ const ImageUploader = view(({ open }) => {
       alert(err)
       console.log('err', err)
     }
-
   }
 
   return (
-    <div className={["f-i", open ? 'active' : null].join(' ')}>
+    <div
+      className={['f-i', open ? 'active' : null].join(' ')}
+    >
       <input
         onChange={onImageUpload}
         required
@@ -90,47 +98,79 @@ const ImageUploader = view(({ open }) => {
       />
       <div className="f-i__date">
         {foundPhotos.searchDateStart && (
-          <span>Период с: {new Date(foundPhotos.searchDateStart).toLocaleDateString()}</span>
+          <span>
+            Период с:{' '}
+            {new Date(
+              foundPhotos.searchDateStart
+            ).toLocaleDateString()}
+          </span>
         )}
         {foundPhotos.searchDateEnd && (
-          <span>Период до: {new Date(foundPhotos.searchDateEnd).toLocaleDateString()}</span>
+          <span>
+            Период до:{' '}
+            {new Date(
+              foundPhotos.searchDateEnd
+            ).toLocaleDateString()}
+          </span>
         )}
       </div>
-      { base64 ? (
+      {base64 ? (
         <div className="f-i__wrapUploaded">
           <p className="f-i__imageName">{image?.name}</p>
-          {foundPhotos.searching && <Loader text={`Идет загрузка, ${(foundPhotos.searchProgress * 100).toFixed(2)}%`} small />}
-          <img className="f-i__uploaded" src={base64} alt="uploaded"/>
-          {!foundPhotos.searching && foundPhotos.searchResult && (
-            <div style={{ textAlign: "center", marginBottom: 20, }}>
-              {foundPhotos.searchResult?.results?.length ? (
-                <>
-                </>
-              ) : (
-                <p>Ничего не найденно</p>
-              )}
-            </div>
+          {foundPhotos.searching && (
+            <Loader
+              text={`Идет загрузка, ${(
+                foundPhotos.searchProgress * 100
+              ).toFixed(2)}%`}
+              small
+            />
           )}
+          <img
+            className="f-i__uploaded"
+            src={base64}
+            alt="uploaded"
+          />
+          {!foundPhotos.searching &&
+            foundPhotos.searchResult && (
+              <div
+                style={{
+                  textAlign: 'center',
+                  marginBottom: 20,
+                }}
+              >
+                {foundPhotos.searchResult?.results
+                  ?.length ? (
+                  <></>
+                ) : (
+                  <p>Ничего не найденно</p>
+                )}
+              </div>
+            )}
           <div className="f-i__btnWrap">
             {!foundPhotos.searching && (
               <BigButton
                 disabled={process || foundPhotos.searching}
                 onClick={handleSubmit(onSearchByImage)}
                 className="f-i__searchBtn"
-              >{process ? "Загрузка..." : "Искать по фотографии"}</BigButton>
+              >
+                {process
+                  ? 'Загрузка...'
+                  : 'Искать по фотографии'}
+              </BigButton>
             )}
           </div>
         </div>
       ) : (
-        <label htmlFor="image" className="f-i__uploadBox flex-center">
-
+        <label
+          htmlFor="image"
+          className="f-i__uploadBox flex-center"
+        >
           <div className="f-i__description">
-
-            <BigButton tag="span" light>Выберите фото</BigButton>
+            <BigButton tag="span" light>
+              Выберите фото
+            </BigButton>
             <p className="f-i__types">Только png и jpg</p>
-
           </div>
-
         </label>
       )}
     </div>

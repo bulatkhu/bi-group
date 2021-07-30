@@ -8,19 +8,19 @@ import './styles.scss'
 
 const Auth = () => {
   const [process, setProcess] = useState(false)
-  const [error, setError] = useState("")
+  const [error, setError] = useState('')
   const history = useHistory()
 
   const form = useForm({
     defaultValues: {
-      username: "ext-kudainazarov@bi.group",
-      password: "Alex123!Alex123!",
-    }
+      username: 'ext-kudainazarov@bi.group',
+      password: 'Alex123!Alex123!',
+    },
   })
 
   const onFormSubmit = async (data) => {
     setProcess(true)
-    setError("")
+    setError('')
     const res = await auth.login(data)
     if (res === true) {
       auth.auth()
@@ -32,18 +32,19 @@ const Auth = () => {
     setProcess(false)
   }
 
-
   return (
     <div
       className="auth"
       style={{
-        backgroundImage: "url(/images/auth/bg.jpg)",
+        backgroundImage: 'url(/images/auth/bg.jpg)',
       }}
     >
       <form className="auth__wrapper">
         <div className="auth__top">
           <h2 className="auth__title">Авторизоваться</h2>
-          <p className="auth__subTitle">Войдите для просмота фотогалереи</p>
+          <p className="auth__subTitle">
+            Войдите для просмота фотогалереи
+          </p>
         </div>
         <div className="auth__middle authMid">
           <label htmlFor="email" className="authMid__label">
@@ -55,8 +56,11 @@ const Auth = () => {
             name="username"
             id="username"
           />
-          <div style={{ height: 16 }}/>
-          <label htmlFor="password" className="authMid__label">
+          <div style={{ height: 16 }} />
+          <label
+            htmlFor="password"
+            className="authMid__label"
+          >
             Пароль
           </label>
           <FormInput
@@ -72,9 +76,9 @@ const Auth = () => {
           <BigButton
             disabled={process}
             onClick={form.handleSubmit(onFormSubmit)}
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
           >
-            {process ? "Загрузка..." : "Войти"}
+            {process ? 'Загрузка...' : 'Войти'}
           </BigButton>
         </div>
       </form>

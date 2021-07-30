@@ -12,32 +12,28 @@ const PhotoElement = ({ img, title, id, tags, year }) => {
 
   return (
     <>
-      {
-        open && (
-          <UsePortal>
-            <ModalOverlay
+      {open && (
+        <UsePortal>
+          <ModalOverlay setOpen={setOpen}>
+            <PhotoModal
+              year={year}
               setOpen={setOpen}
-            >
-              <PhotoModal
-                year={year}
-                setOpen={setOpen}
-                img={img}
-                title={title}
-                id={id}
-                tags={tags}
-                btn={false}
-              />
-            </ModalOverlay>
-          </UsePortal>
-        )
-      }
+              img={img}
+              title={title}
+              id={id}
+              tags={tags}
+              btn={false}
+            />
+          </ModalOverlay>
+        </UsePortal>
+      )}
       <div
         onClick={onShowModal}
         data-id={id}
         className="photoElement"
       >
         {/*<p className="photoElement__title">{TextAbstract(title, 20)}</p>*/}
-        <img src={img} alt={title}/>
+        <img src={img} alt={title} />
       </div>
     </>
   )

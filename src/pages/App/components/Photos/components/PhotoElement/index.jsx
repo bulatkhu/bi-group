@@ -4,7 +4,13 @@ import './styles.scss'
 import ModalOverlay from '../../../../../../components/modals/ModalOverlay'
 import PhotoModal from './components/PhotoModal'
 
-const PhotoElement = ({ thumbnail: img, name: title, pk: id, year, tags }) => {
+const PhotoElement = ({
+  thumbnail: img,
+  name: title,
+  pk: id,
+  year,
+  tags,
+}) => {
   const [open, setOpen] = useState(false)
 
   const onShowModal = () => {
@@ -13,24 +19,20 @@ const PhotoElement = ({ thumbnail: img, name: title, pk: id, year, tags }) => {
 
   return (
     <>
-      {
-        open && (
-          <UsePortal>
-            <ModalOverlay
+      {open && (
+        <UsePortal>
+          <ModalOverlay setOpen={setOpen}>
+            <PhotoModal
+              tags={tags}
+              year={year}
+              img={img}
+              title={title}
               setOpen={setOpen}
-            >
-              <PhotoModal
-                tags={tags}
-                year={year}
-                img={img}
-                title={title}
-                setOpen={setOpen}
-                id={id}
-              />
-            </ModalOverlay>
-          </UsePortal>
-        )
-      }
+              id={id}
+            />
+          </ModalOverlay>
+        </UsePortal>
+      )}
       <div
         onClick={onShowModal}
         data-id={id}
@@ -40,7 +42,7 @@ const PhotoElement = ({ thumbnail: img, name: title, pk: id, year, tags }) => {
         {/*<div className="photoElement__img">*/}
         {/*  <img src={img} alt={title}/>*/}
         {/*</div>*/}
-        <img src={img} alt={title}/>
+        <img src={img} alt={title} />
       </div>
     </>
   )

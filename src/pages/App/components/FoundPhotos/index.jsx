@@ -28,11 +28,16 @@ const FoundPhotos = view(() => {
         </h1>
 
         <div style={{ height: 10 }} />
-        {
-          foundPhotos.searching
-            ? <Loader small text={`Прогресс поиска: ${(foundPhotos.searchProgress * 100).toFixed(2)}%`} />
-            : <Groups />
-        }
+        {foundPhotos.searching ? (
+          <Loader
+            small
+            text={`Прогресс поиска: ${(
+              foundPhotos.searchProgress * 100
+            ).toFixed(2)}%`}
+          />
+        ) : (
+          <Groups />
+        )}
       </div>
     </main>
   )

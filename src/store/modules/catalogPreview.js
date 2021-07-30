@@ -1,9 +1,9 @@
-import { store } from '@risingstack/react-easy-state';
+import { store } from '@risingstack/react-easy-state'
 import { get } from '../api'
 import { reqErrHandler } from '../../helpers/reqErrHandler'
 
 const catalogPreview = store({
-  search: "2020",
+  search: '2020',
   limit: 20,
   offset: 0,
   loading: false,
@@ -12,7 +12,7 @@ const catalogPreview = store({
 
   async getCatalogPreview() {
     try {
-      catalogPreview.loading = true;
+      catalogPreview.loading = true
 
       const params = {
         limit: catalogPreview.limit,
@@ -23,17 +23,18 @@ const catalogPreview = store({
         params.search = catalogPreview.search
       }
 
-      const { data: { results } } = await get('/api/images/tags/groups/', params)
+      const {
+        data: { results },
+      } = await get('/api/images/tags/groups/', params)
 
-      catalogPreview.loading = false;
-      catalogPreview.catalog = [results, null];
+      catalogPreview.loading = false
+      catalogPreview.catalog = [results, null]
     } catch (e) {
-      const err = reqErrHandler(e);
-      catalogPreview.loading = false;
-      catalogPreview.catalog = [[], err];
+      const err = reqErrHandler(e)
+      catalogPreview.loading = false
+      catalogPreview.catalog = [[], err]
     }
   },
+})
 
-});
-
-export default catalogPreview;
+export default catalogPreview

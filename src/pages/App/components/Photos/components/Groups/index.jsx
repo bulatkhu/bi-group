@@ -1,5 +1,5 @@
 import React from 'react'
-import {view} from '@risingstack/react-easy-state'
+import { view } from '@risingstack/react-easy-state'
 import PhotoElement from '../PhotoElement'
 import catalogues from '../../../../../../store/modules/catalogue'
 import sortPhotos from '../../../../../../helpers/sortPhotos'
@@ -12,50 +12,69 @@ const Groups = view(() => {
 
   const makePhotos = () => {
     if (hasPhotos) {
+      console.log('catalogues photos', catalogues.photos)
 
       const sortedPhotos = sortPhotos(catalogues.photos)
 
       return (
         <>
-          {sortedPhotos.map(({ year, photos: photosByTags }, index) => {
-
-            return (
-              <div key={index}>
-                <p className="photosMain__date">{year} год</p>
+          {sortedPhotos.map(
+            ({ year, photos: photosByTags }, index) => {
+              return (
+                <div key={index}>
+                  <p className="photosMain__date">
+                    {year} год
+                  </p>
                   <>
-                    {Object.keys(photosByTags).map((photoTag, index) => {
-                      const photos = photosByTags[photoTag];
+                    {Object.keys(photosByTags).map(
+                      (photoTag, index) => {
+                        const photos =
+                          photosByTags[photoTag]
 
-                      return (
-                        <div key={index} className="photosMain-photo">
-                          <div className="photosMain-photo__tagWrapper">
-                            <span className="photosMain-photo__tag">
-                              Тег: <span>{photoTag}</span>
-                            </span>
+                        return (
+                          <div
+                            key={index}
+                            className="photosMain-photo"
+                          >
+                            <div className="photosMain-photo__tagWrapper">
+                              <span className="photosMain-photo__tag">
+                                Тег: <span>{photoTag}</span>
+                              </span>
+                            </div>
+                            <div className="photosMain__masonry">
+                              {photos.map(
+                                (photo, index) => (
+                                  <PhotoElement
+                                    key={index}
+                                    {...photo}
+                                  />
+                                )
+                              )}
+                            </div>
                           </div>
-                          <div className="photosMain__masonry">
-                            {photos.map((photo, index) => (
-                              <PhotoElement key={index} {...photo} />
-                            ))}
-                          </div>
-                        </div>
-                      )
-                    })}
+                        )
+                      }
+                    )}
                   </>
-                {
-                  catalogues.process
-                    ? <Loader />
-                      : catalogues.error
-                      ? <p className="error">{catalogues.error}</p>
-                        : hasPhotos && catalogues.nextLink
-                          ? <InfiniteLoader
-                              onVisited={() => catalogues.getTestImages()}
-                            />
-                          : <p>Фотографий больше нет</p>
-                }
-              </div>
-            )
-          })}
+                  {catalogues.process ? (
+                    <Loader />
+                  ) : catalogues.error ? (
+                    <p className="error">
+                      {catalogues.error}
+                    </p>
+                  ) : hasPhotos && catalogues.nextLink ? (
+                    <InfiniteLoader
+                      onVisited={() =>
+                        catalogues.getTestImages()
+                      }
+                    />
+                  ) : (
+                    <p>Фотографий больше нет</p>
+                  )}
+                </div>
+              )
+            }
+          )}
         </>
       )
     } else {
@@ -63,11 +82,7 @@ const Groups = view(() => {
     }
   }
 
-  return (
-    <>
-      {makePhotos()}
-    </>
-  )
+  return <>{makePhotos()}</>
 })
 
 export default Groups

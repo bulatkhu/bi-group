@@ -1,26 +1,28 @@
-import axios from 'axios';
-import qs from 'qs';
+import axios from 'axios'
+import qs from 'qs'
 
 export const headers = () => {
-  const token = sessionStorage.getItem('accessToken');
+  const token = sessionStorage.getItem('accessToken')
 
-  let Authorization = null;
+  let Authorization = null
   if (token) {
-    Authorization = `Bearer ${token}`;
+    Authorization = `Bearer ${token}`
   }
-  const others = {};
+  const others = {}
 
-  return Authorization ? {Authorization, ...others} : others;
-};
+  return Authorization
+    ? { Authorization, ...others }
+    : others
+}
 
 export const get = (url, params) =>
   axios.get(url, {
     headers: headers(),
     params,
     data: {},
-    paramsSerializer: params => {
-      return qs.stringify(params, { arrayFormat: "repeat" })
-    }
+    paramsSerializer: (params) => {
+      return qs.stringify(params, { arrayFormat: 'repeat' })
+    },
   })
 
 export const post = (url, payload, params) =>
@@ -30,18 +32,18 @@ export const post = (url, payload, params) =>
   })
 
 export const put = (url, payload) =>
-  axios.put(url, payload, {headers: headers()})
+  axios.put(url, payload, { headers: headers() })
 
 export const patch = (url, payload) =>
-  axios.patch(url, payload, {headers: headers()})
+  axios.patch(url, payload, { headers: headers() })
 
 export const del = (url, payload) =>
-  axios.delete(url, {headers: headers(), data: payload})
+  axios.delete(url, { headers: headers(), data: payload })
 
 export const fakeApi = (ms) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(true)
     }, ms ?? 2000)
-  });
-};
+  })
+}

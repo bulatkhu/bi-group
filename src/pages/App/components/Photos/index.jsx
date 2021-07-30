@@ -9,15 +9,15 @@ import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
 
 const Photos = view(() => {
-  const { search } = useLocation();
-  const queryParams = queryString.parse(search);
+  const { search } = useLocation()
+  const queryParams = queryString.parse(search)
 
   useEffect(() => {
     catalogues.getTestImages(null, queryParams)
   }, [queryParams])
 
   useEffect(() => {
-    catalogues.clearModule();
+    catalogues.clearModule()
   }, [queryParams?.tags?.length])
 
   return (
@@ -29,11 +29,13 @@ const Photos = view(() => {
         <h1 className="photosMain__title">
           Галерея фотографий
         </h1>
-        {!catalogues.catalogLoaded
-          ? <Loader />
-          : <>
-            <Groups/>
-          </>}
+        {!catalogues.catalogLoaded ? (
+          <Loader />
+        ) : (
+          <>
+            <Groups />
+          </>
+        )}
       </div>
     </main>
   )

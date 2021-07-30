@@ -1,28 +1,33 @@
 const sortObject = (obj) => {
-  return Object
-    .keys(obj)
+  return Object.keys(obj)
     .sort((a, b) => {
       return +a - +b
     })
     .reduce((result, key) => {
-      result[key] = obj[key];
-      return result;
-    }, {});
+      result[key] = obj[key]
+      return result
+    }, {})
 }
 
 const getAllUniqueTagsByPhotoGroup = (photos) => {
-  const allTagsSetter = new Set();
-  const allTags = [];
-  photos.forEach(photo => {
-    photo.tags.forEach(({ name }) => allTagsSetter.add(name));
-  });
-  allTagsSetter.forEach(tag => allTags.push(tag));
+  const allTagsSetter = new Set()
 
-  return allTags;
+  allTagsSetter.add('no_tag')
+
+  photos.forEach((photo) => {
+    photo.tags.forEach(({ name }) =>
+      allTagsSetter.add(name)
+    )
+  })
+  // allTagsSetter.forEach(tag => allTags.push(tag));
+
+  return Array.from(allTagsSetter)
 }
 
 const sortPhotos = (photos) => {
   if (!photos || !photos?.length) return {}
+
+  console.log('photos', photos)
 
   const sorted = {}
   try {
@@ -34,22 +39,24 @@ const sortPhotos = (photos) => {
       }
     })
 
-    const sortedPhotos = sortObject(sorted);
+    const sortedPhotos = sortObject(sorted)
 
-    return Object.keys(sortedPhotos).map(key => {
-      const photosByTags = {}
-      const photos = sortedPhotos[key];
+    return Object.keys(sortedPhotos).map((key) => {
+      const photosByTags = {
+        no_tag: [],
+      }
+      const photos = sortedPhotos[key]
 
-      const allTags = getAllUniqueTagsByPhotoGroup(photos);
+      const allTags = getAllUniqueTagsByPhotoGroup(photos)
 
-      allTags.forEach(tag => {
-        photosByTags[tag] = [];
-      });
+      allTags.forEach((tag) => {
+        photosByTags[tag] = []
+      })
 
-      photos.forEach(photo => {
-        photo.tags.forEach(({name}) => {
+      photos.forEach((photo) => {
+        photo.tags.forEach(({ name }) => {
           if (photosByTags.hasOwnProperty(name)) {
-            photosByTags[name].push(photo);
+            photosByTags[name].push(photo)
           }
         })
       })
@@ -57,8 +64,8 @@ const sortPhotos = (photos) => {
       return {
         year: key,
         photos: photosByTags,
-      };
-    });
+      }
+    })
   } catch (e) {
     console.log('err', e)
     return {}

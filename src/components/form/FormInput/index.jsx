@@ -4,8 +4,7 @@ import PassInput from './components/PassInput'
 import './styles.scss'
 
 const FormInput = ({ type, form, ...rest }) => {
-
-  if (type === "password") {
+  if (type === 'password') {
     return (
       <div className="fromInput__wrapper">
         <PassInput {...rest} form={form} />
@@ -15,7 +14,7 @@ const FormInput = ({ type, form, ...rest }) => {
 
   return (
     <div className="fromInput__wrapper">
-      <Input {...rest} form={form}/>
+      <Input {...rest} form={form} />
     </div>
   )
 }

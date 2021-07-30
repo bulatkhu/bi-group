@@ -6,17 +6,19 @@ import Loader from '../../../../../../components/elements/Loader'
 import InfiniteLoader from 'react-infinite-loader'
 
 const Groups = view(() => {
-
   const makePhotos = () => {
     const photos = foundPhotos.searchResult?.results
 
     if (photos && photos.length) {
-      const allPhotos = [...photos, ...foundPhotos.pagination.photos]
+      const allPhotos = [
+        ...photos,
+        ...foundPhotos.pagination.photos,
+      ]
 
       return (
         <div>
           <div className="photosMain__masonry">
-            {allPhotos.map((photo, index) =>
+            {allPhotos.map((photo, index) => (
               <PhotoElement
                 id={photo.pk}
                 key={index}
@@ -25,34 +27,33 @@ const Groups = view(() => {
                 img={photo.thumbnail}
                 tags={photo.tags}
               />
-            )}
+            ))}
           </div>
-          {
-            foundPhotos.pagination.end
-              ? <p>Больше фотографий не найденно</p>
-              : <div>
-                {!foundPhotos.pagination.process && (
-                  <InfiniteLoader
-                    onVisited={() => foundPhotos.getMorePhotos()}
-                  />
-                )}
-                <Loader/>
-              </div>
-          }
+          {foundPhotos.pagination.end ? (
+            <p>Больше фотографий не найденно</p>
+          ) : (
+            <div>
+              {!foundPhotos.pagination.process && (
+                <InfiniteLoader
+                  onVisited={() =>
+                    foundPhotos.getMorePhotos()
+                  }
+                />
+              )}
+              <Loader />
+            </div>
+          )}
         </div>
       )
-    } if (foundPhotos.searching) {
+    }
+    if (foundPhotos.searching) {
       return <Loader text="Загрузка" />
     } else {
       return <p>Фото не найдены</p>
     }
   }
 
-  return (
-    <>
-      {makePhotos()}
-    </>
-  )
+  return <>{makePhotos()}</>
 })
 
 export default Groups

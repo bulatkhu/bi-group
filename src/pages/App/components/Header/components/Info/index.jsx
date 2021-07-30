@@ -14,27 +14,40 @@ const Info = view(() => {
     <div className="profile-info__wrap">
       <button
         onBlur={() => setTimeout(() => setOpen(false), 200)}
-        onClick={() => setOpen(p => !p)}
+        onClick={() => setOpen((p) => !p)}
         className="profile-info flex-center"
       >
-        <AnimatedDropdownArrow className={['profile-info__arrow', open ? 'open' : null].join(' ')}/>
-        <span className="profile-info__name">{auth.user?.first_name || 'No name'}</span>
+        <AnimatedDropdownArrow
+          className={[
+            'profile-info__arrow',
+            open ? 'open' : null,
+          ].join(' ')}
+        />
+        <span className="profile-info__name">
+          {auth.user?.first_name || 'No name'}
+        </span>
         <span className="profile-info__avatar">
-        {
-          auth.user?.avatar ? (
-            <img src={auth.user.avatar} alt="avatar"/>
+          {auth.user?.avatar ? (
+            <img src={auth.user.avatar} alt="avatar" />
           ) : (
-            <p className="profile-info__noPhoto flex-center">Нет фото</p>
-          )
-        }
-      </span>
+            <p className="profile-info__noPhoto flex-center">
+              Нет фото
+            </p>
+          )}
+        </span>
       </button>
-      <div className={['profile-info__dropdown p-d', open ? 'active' : null].join(' ')}>
-
+      <div
+        className={[
+          'profile-info__dropdown p-d',
+          open ? 'active' : null,
+        ].join(' ')}
+      >
         <div className="p-d__wrapper">
           <div className="p-d__group">
             <p className="p-d__label">ФИО</p>
-            <p className="p-d__info">{auth.user?.first_name} {auth.user?.last_name}</p>
+            <p className="p-d__info">
+              {auth.user?.first_name} {auth.user?.last_name}
+            </p>
           </div>
 
           {/*<div className="p-d__group">*/}
@@ -52,12 +65,19 @@ const Info = view(() => {
               auth.logout()
               history.push('/auth')
             }}
-            style={{padding: '6px 10px', fontWeight: 600, fontSize: 18, width: '100%'}}
-          >Выйти</BigButton></div>
-
+            style={{
+              padding: '6px 10px',
+              fontWeight: 600,
+              fontSize: 18,
+              width: '100%',
+            }}
+          >
+            Выйти
+          </BigButton>
+        </div>
       </div>
     </div>
-  );
+  )
 })
 
 export default Info

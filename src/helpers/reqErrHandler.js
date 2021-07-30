@@ -1,7 +1,8 @@
 const defaultMsg = 'Something went wrong'
 
 export function reqErrHandler(error) {
-  if (!error || !error.response || !error.response.data) return defaultMsg
+  if (!error || !error.response || !error.response.data)
+    return defaultMsg
 
   if (typeof error.response.data !== 'string') {
     return (

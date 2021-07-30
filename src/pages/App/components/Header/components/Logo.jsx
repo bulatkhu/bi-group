@@ -11,7 +11,7 @@ const Logo = view(() => {
       to={isAuth ? '/app-catalogues/catalogues' : '/auth'}
       className="header__logo flex-center"
     >
-      <img src="/images/header/logo.png" alt="Logo"/>
+      <img src="/images/header/logo.png" alt="Logo" />
     </Link>
   )
 })

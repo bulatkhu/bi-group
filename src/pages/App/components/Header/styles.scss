@@ -4,7 +4,7 @@
   align-items: center;
   padding: 10px 70px;
   min-height: 80px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0 3px 24px rgba(0, 0, 0, 0.03);
 
   @media (max-width: 1200px) {
@@ -14,7 +14,6 @@
   }
 
   &__logo {
-
     @media (max-width: 992px) {
       width: 78.1px;
       height: 20px;
@@ -24,10 +23,8 @@
         height: 100%;
       }
     }
-
   }
 
   &__avatar {
-
   }
 }

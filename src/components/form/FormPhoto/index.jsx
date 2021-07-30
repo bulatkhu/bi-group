@@ -8,15 +8,15 @@ import AnimatedDropdownArrow from '../../elements/AnimatedDropdownArrow'
 import { IconUploadImg } from '../../Icons'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
-import "./styles.scss"
+import './styles.scss'
 import { useForm } from 'react-hook-form'
 import ImageUploader from './components/ImageUploader'
 import SearchResults from './components/SearchResults'
 import RangePicker from './components/RangePicker'
 import BigButton from '../../elements/BigButton'
 import searching from '../../../store/modules/searching'
-import {useDebounce} from '../../../hooks/useDebounce'
-import {useHistory} from 'react-router-dom'
+import { useDebounce } from '../../../hooks/useDebounce'
+import { useHistory } from 'react-router-dom'
 // import foundPhotos from '../../../store/modules/foundPhotos'
 import catalogue from '../../../store/modules/catalogue'
 import foundPhotos from '../../../store/modules/foundPhotos'
@@ -25,17 +25,21 @@ const FormPhoto = view(() => {
   const history = useHistory()
 
   const [openValue, setOpenValue] = useState(false)
-  const [openDatePicker, setOpenDatePicker] = useState(false)
-  const [openImgUploader, setOpenImgUploader] = useState(false)
+  const [openDatePicker, setOpenDatePicker] =
+    useState(false)
+  const [openImgUploader, setOpenImgUploader] =
+    useState(false)
 
-  const preMobile = useMediaQuery({ query: '(max-width: 992px)' })
+  const preMobile = useMediaQuery({
+    query: '(max-width: 992px)',
+  })
 
   const form = useForm({
     defaultValues: {
       image: '',
       value: '',
     },
-    mode: 'onChange'
+    mode: 'onChange',
   })
 
   // useEffect(() => {
@@ -53,7 +57,7 @@ const FormPhoto = view(() => {
       setOpenValue(false)
       setOpenDatePicker(false)
     }
-  },[openValue, openDatePicker, openImgUploader])
+  }, [openValue, openDatePicker, openImgUploader])
 
   const closeEveryThing = () => {
     setOpenDatePicker(false)
@@ -66,19 +70,17 @@ const FormPhoto = view(() => {
   const hasValue = debouncedValue && debouncedValue.trim()
 
   useEffect(() => {
-
     if (hasValue) {
       searching.searchByValue(debouncedValue)
     } else {
       searching.clearModule()
     }
-
   }, [debouncedValue, hasValue])
 
   const onSearchWithoutAvatar = async () => {
     closeEveryThing()
-    history.push("/app-catalogues")
-    await catalogue.getTestImages(false);
+    history.push('/app-catalogues')
+    await catalogue.getTestImages(false)
   }
 
   const onSearchValue = async () => {
@@ -86,37 +88,45 @@ const FormPhoto = view(() => {
       setOpenValue(true)
     }
 
-    const { error, message } = await searching.searchByImgUrl(searching.chosenAvatar)
+    const { error, message } =
+      await searching.searchByImgUrl(searching.chosenAvatar)
     if (error) {
-      alert("Что то пошло не так: " + message)
+      alert('Что то пошло не так: ' + message)
     } else {
-      console.log("success", message)
+      console.log('success', message)
       closeEveryThing()
       history.push(`/app-found/${message}`)
     }
   }
 
-  const hasRequiredValues = searching.chosenAvatar || searching.chosenTags.length ||
-    (foundPhotos.searchDateStart &&foundPhotos.searchDateStart &&foundPhotos.searchDateEnd &&foundPhotos.searchDateEnd)
+  const hasRequiredValues =
+    searching.chosenAvatar ||
+    searching.chosenTags.length ||
+    (foundPhotos.searchDateStart &&
+      foundPhotos.searchDateStart &&
+      foundPhotos.searchDateEnd &&
+      foundPhotos.searchDateEnd)
 
   return (
     <div className="fromPhoto">
-      {
-        (openValue || openDatePicker || openImgUploader) && (
-          <UsePortal>
-            <div
-              onClick={closeEveryThing}
-              className="fromPhoto__bg"
-            />
-          </UsePortal>
-        )
-      }
+      {(openValue || openDatePicker || openImgUploader) && (
+        <UsePortal>
+          <div
+            onClick={closeEveryThing}
+            className="fromPhoto__bg"
+          />
+        </UsePortal>
+      )}
       <div className="fromPhoto__wrap">
-        <label onClick={() => {
-          closeEveryThing()
-          setOpenValue(true)
-        }} htmlFor="value" className="fromPhoto__el1">
-          <SearchIcon/>
+        <label
+          onClick={() => {
+            closeEveryThing()
+            setOpenValue(true)
+          }}
+          htmlFor="value"
+          className="fromPhoto__el1"
+        >
+          <SearchIcon />
           <input
             ref={form.register({
               required: true,
@@ -125,18 +135,23 @@ const FormPhoto = view(() => {
             name="value"
             placeholder={
               !preMobile
-                ? "Найти по имени или по мероприятию"
-                : "Искать"
-            } type="text"/>
+                ? 'Найти по имени или по мероприятию'
+                : 'Искать'
+            }
+            type="text"
+          />
         </label>
-        <button onClick={() => {
-          closeEveryThing()
-          setOpenDatePicker(prev => !prev)
-        }} className="fromPhoto__el2">
+        <button
+          onClick={() => {
+            closeEveryThing()
+            setOpenDatePicker((prev) => !prev)
+          }}
+          className="fromPhoto__el2"
+        >
           <div className="datePicker">
-          <span className="datePicker__name">
+            <span className="datePicker__name">
               Выбрать дату
-          </span>
+            </span>
             <AnimatedDropdownArrow
               className={openDatePicker ? 'active' : null}
             />
@@ -150,23 +165,33 @@ const FormPhoto = view(() => {
         }}
         className="fromPhoto__upload"
       >
-        <IconUploadImg/>
+        <IconUploadImg />
       </button>
       <BigButton
-        onClick={searching.chosenAvatar ? onSearchValue : onSearchWithoutAvatar}
-        disabled={!hasRequiredValues}
-        className={
-          [
-            "fromPhoto__btn",
-            openValue
-              ? "active"
-              : null
-          ].join(' ')
+        onClick={
+          searching.chosenAvatar
+            ? onSearchValue
+            : onSearchWithoutAvatar
         }
-      >Поиск</BigButton>
-      <ImageUploader form={form} open={openImgUploader} setOpen={setOpenImgUploader} />
+        disabled={!hasRequiredValues}
+        className={[
+          'fromPhoto__btn',
+          openValue ? 'active' : null,
+        ].join(' ')}
+      >
+        Поиск
+      </BigButton>
+      <ImageUploader
+        form={form}
+        open={openImgUploader}
+        setOpen={setOpenImgUploader}
+      />
       <RangePicker open={openDatePicker} />
-      <SearchResults hasValue={hasValue} form={form} open={openValue} />
+      <SearchResults
+        hasValue={hasValue}
+        form={form}
+        open={openValue}
+      />
     </div>
   )
 })
