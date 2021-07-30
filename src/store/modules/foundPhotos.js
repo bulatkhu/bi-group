@@ -133,11 +133,11 @@ const foundPhotos = store({
           params.tags = searching.chosenTags
         }
 
-        const { data } = await get('/api/images/', params)
+        await foundPhotos.getMorePhotos()
 
         foundPhotos.searching = false
-        foundPhotos.searchResult = data
         foundPhotos.searchResLoaded = true
+        // foundPhotos.searchResult = data
 
         const sS =
           JSON.parse(sessionStorage.getItem('results')) ||

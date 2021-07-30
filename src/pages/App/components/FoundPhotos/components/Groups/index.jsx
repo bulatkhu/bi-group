@@ -7,18 +7,11 @@ import InfiniteLoader from 'react-infinite-loader'
 
 const Groups = view(() => {
   const makePhotos = () => {
-    const photos = foundPhotos.searchResult?.results
-
-    if (photos && photos.length) {
-      const allPhotos = [
-        ...photos,
-        ...foundPhotos.pagination.photos,
-      ]
-
+    if (foundPhotos.pagination.photos) {
       return (
         <div>
           <div className="photosMain__masonry">
-            {allPhotos.map((photo) => (
+            {foundPhotos.pagination.photos.map((photo) => (
               <PhotoElement
                 id={photo.pk}
                 key={photo.pk}
