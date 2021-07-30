@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import UsePortal from '../../../../../../hooks/usePortal'
 import ModalOverlay from '../../../../../../components/modals/ModalOverlay'
 import PhotoModal from '../../../Photos/components/PhotoElement/components/PhotoModal'
+import CustomImageFallback from '../../../../../../components/elements/CustomImageFallback'
 
 const PhotoElement = ({ img, title, id, tags, year }) => {
   const [open, setOpen] = useState(false)
@@ -33,7 +34,7 @@ const PhotoElement = ({ img, title, id, tags, year }) => {
         className="photoElement"
       >
         {/*<p className="photoElement__title">{TextAbstract(title, 20)}</p>*/}
-        <img src={img} alt={title} />
+        <CustomImageFallback src={img} alt={title} />
       </div>
     </>
   )

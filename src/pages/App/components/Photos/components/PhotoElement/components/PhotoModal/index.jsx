@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { IconClose } from '../../../../../../../../components/Icons'
 import BigButton from '../../../../../../../../components/elements/BigButton'
 import './styles.scss'
+import CustomImageFallback from '../../../../../../../../components/elements/CustomImageFallback'
 
 const PhotoModal = ({
   id,
@@ -25,7 +26,7 @@ const PhotoModal = ({
           <IconClose />
         </button>
         <span className="pModal__imgWrap flex-center">
-          <img src={img} alt={title} />
+          <CustomImageFallback src={img} alt={title} />
         </span>
       </div>
       <div

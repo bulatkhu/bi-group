@@ -1,0 +1,26 @@
+.root {
+}
+
+.fallback {
+  width: 300px;
+  height: 200px;
+
+  background-color: #96a0b5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  color: #fff;
+
+  border-radius: 5px;
+
+  &__label {
+    margin-bottom: 10px;
+  }
+
+  &__path {
+    display: inline-block;
+    word-break: break-word;
+  }
+}

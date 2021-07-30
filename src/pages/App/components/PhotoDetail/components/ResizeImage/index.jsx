@@ -3,6 +3,7 @@ import {
   IconScaleMinus,
   IconScalePlus,
 } from '../../../../../../components/Icons'
+import CustomImageFallback from '../../../../../../components/elements/CustomImageFallback'
 
 const ResizeImage = ({ img, alt, setLoading }) => {
   const [scale, setScale] = useState(1)
@@ -28,7 +29,7 @@ const ResizeImage = ({ img, alt, setLoading }) => {
           >
             <IconScaleMinus />
           </button>
-          <img
+          <CustomImageFallback
             onLoad={() => setLoading(false)}
             src={img}
             style={{ transform: `scale(${scale})` }}

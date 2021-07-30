@@ -4,6 +4,7 @@ import React, {
   useState,
 } from 'react'
 import { Link } from 'react-router-dom'
+import CustomImageFallback from '../../../../components/elements/CustomImageFallback'
 
 const CategoryItem = ({ queryTags, img, tags, name }) => {
   const refImgHeight = useRef(null)
@@ -44,7 +45,7 @@ const CategoryItem = ({ queryTags, img, tags, name }) => {
         </p>
       </div>
 
-      <img
+      <CustomImageFallback
         onLoadStart={updateSize}
         onLoad={updateSize}
         ref={refImgHeight}
