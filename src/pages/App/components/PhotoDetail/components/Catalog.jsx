@@ -58,7 +58,7 @@ const Catalog = ({ catalog }) => {
         {catalog.tags.map((tag) => tag.name).join(', ')}
       </span>
     ) : (
-      'Теги были не найденно'
+      ' -'
     )
 
   return (

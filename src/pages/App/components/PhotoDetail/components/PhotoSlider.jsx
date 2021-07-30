@@ -37,16 +37,17 @@ const PhotoSlider = ({ catalog }) => {
         Публичная ссылка
       </a>
       <div className="photo-slider">
-        {allImages.map((item, index) => (
-          <button
-            key={index}
-            onClick={() => setSlide(index)}
-            className={[
-              'photo-slider__dot',
-              slide === index && 'active',
-            ].join(' ')}
-          />
-        ))}
+        {allImages.length > 1 &&
+          allImages.map((item, index) => (
+            <button
+              key={index}
+              onClick={() => setSlide(index)}
+              className={[
+                'photo-slider__dot',
+                slide === index && 'active',
+              ].join(' ')}
+            />
+          ))}
       </div>
       {loading && <Loader small>Загрузка...</Loader>}
       <ResizeImage

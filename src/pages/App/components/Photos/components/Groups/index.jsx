@@ -12,8 +12,6 @@ const Groups = view(() => {
 
   const makePhotos = () => {
     if (hasPhotos) {
-      console.log('catalogues photos', catalogues.photos)
-
       const sortedPhotos = sortPhotos(catalogues.photos)
 
       return (
@@ -38,7 +36,12 @@ const Groups = view(() => {
                           >
                             <div className="photosMain-photo__tagWrapper">
                               <span className="photosMain-photo__tag">
-                                Тег: <span>{photoTag}</span>
+                                Тег:{' '}
+                                <span>
+                                  {photoTag === 'noTag'
+                                    ? 'Без тега'
+                                    : photoTag}
+                                </span>
                               </span>
                             </div>
                             <div className="photosMain__masonry">

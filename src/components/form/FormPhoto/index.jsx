@@ -16,13 +16,20 @@ import RangePicker from './components/RangePicker'
 import BigButton from '../../elements/BigButton'
 import searching from '../../../store/modules/searching'
 import { useDebounce } from '../../../hooks/useDebounce'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 // import foundPhotos from '../../../store/modules/foundPhotos'
 import catalogue from '../../../store/modules/catalogue'
 import foundPhotos from '../../../store/modules/foundPhotos'
+import { format, isValid } from 'date-fns'
+import catalogues from '../../../store/modules/catalogue'
+import queryString from 'query-string'
+
+const dateFormatter = (date) => format(date, 'MM/dd/yyyy')
 
 const FormPhoto = view(() => {
   const history = useHistory()
+  const { search } = useLocation()
+  const queryParams = queryString.parse(search)
 
   const [openValue, setOpenValue] = useState(false)
   const [openDatePicker, setOpenDatePicker] =
@@ -100,98 +107,140 @@ const FormPhoto = view(() => {
   }
 
   const hasRequiredValues =
-    searching.chosenAvatar ||
-    searching.chosenTags.length ||
+    searching.chosenTags?.length ||
     (foundPhotos.searchDateStart &&
-      foundPhotos.searchDateStart &&
-      foundPhotos.searchDateEnd &&
       foundPhotos.searchDateEnd)
 
+  const { validDateStart, validDateEnd } = {
+    validDateStart: isValid(foundPhotos.searchDateStart),
+    validDateEnd: isValid(foundPhotos.searchDateEnd),
+  }
+
   return (
-    <div className="fromPhoto">
-      {(openValue || openDatePicker || openImgUploader) && (
-        <UsePortal>
-          <div
-            onClick={closeEveryThing}
-            className="fromPhoto__bg"
-          />
-        </UsePortal>
-      )}
-      <div className="fromPhoto__wrap">
-        <label
-          onClick={() => {
-            closeEveryThing()
-            setOpenValue(true)
-          }}
-          htmlFor="value"
-          className="fromPhoto__el1"
-        >
-          <SearchIcon />
-          <input
-            ref={form.register({
-              required: true,
-            })}
-            id="value"
-            name="value"
-            placeholder={
-              !preMobile
-                ? 'Найти по имени или по мероприятию'
-                : 'Искать'
-            }
-            type="text"
-          />
-        </label>
+    <div className="formPhoto__wrapper">
+      <div className="fromPhoto">
+        {(openValue ||
+          openDatePicker ||
+          openImgUploader) && (
+          <UsePortal>
+            <div
+              onClick={closeEveryThing}
+              className="fromPhoto__bg"
+            />
+          </UsePortal>
+        )}
+        <div className="fromPhoto__wrap">
+          <label
+            onClick={() => {
+              closeEveryThing()
+              setOpenValue(true)
+            }}
+            htmlFor="value"
+            className="fromPhoto__el1"
+          >
+            <SearchIcon />
+            <input
+              ref={form.register({
+                required: true,
+              })}
+              id="value"
+              name="value"
+              placeholder={
+                !preMobile
+                  ? 'Найти по имени или по мероприятию'
+                  : 'Искать'
+              }
+              type="text"
+            />
+          </label>
+          <button
+            onClick={() => {
+              closeEveryThing()
+              setOpenDatePicker((prev) => !prev)
+            }}
+            className="fromPhoto__el2"
+          >
+            <div className="datePicker">
+              <span className="datePicker__name">
+                Выбрать дату
+              </span>
+              <AnimatedDropdownArrow
+                className={openDatePicker ? 'active' : null}
+              />
+            </div>
+          </button>
+        </div>
         <button
           onClick={() => {
             closeEveryThing()
-            setOpenDatePicker((prev) => !prev)
+            setOpenImgUploader(true)
           }}
-          className="fromPhoto__el2"
+          className="fromPhoto__upload"
         >
-          <div className="datePicker">
-            <span className="datePicker__name">
-              Выбрать дату
-            </span>
-            <AnimatedDropdownArrow
-              className={openDatePicker ? 'active' : null}
-            />
-          </div>
+          <IconUploadImg />
         </button>
+        <BigButton
+          onClick={
+            searching.chosenAvatar
+              ? onSearchValue
+              : onSearchWithoutAvatar
+          }
+          disabled={!hasRequiredValues}
+          className={[
+            'fromPhoto__btn',
+            openValue ? 'active' : null,
+          ].join(' ')}
+        >
+          Поиск
+        </BigButton>
+        <ImageUploader
+          form={form}
+          open={openImgUploader}
+          setOpen={setOpenImgUploader}
+        />
+        <RangePicker open={openDatePicker} />
+        <SearchResults
+          hasValue={hasValue}
+          form={form}
+          open={openValue}
+        />
       </div>
-      <button
-        onClick={() => {
-          closeEveryThing()
-          setOpenImgUploader(true)
-        }}
-        className="fromPhoto__upload"
-      >
-        <IconUploadImg />
-      </button>
-      <BigButton
-        onClick={
-          searching.chosenAvatar
-            ? onSearchValue
-            : onSearchWithoutAvatar
-        }
-        disabled={!hasRequiredValues}
-        className={[
-          'fromPhoto__btn',
-          openValue ? 'active' : null,
-        ].join(' ')}
-      >
-        Поиск
-      </BigButton>
-      <ImageUploader
-        form={form}
-        open={openImgUploader}
-        setOpen={setOpenImgUploader}
-      />
-      <RangePicker open={openDatePicker} />
-      <SearchResults
-        hasValue={hasValue}
-        form={form}
-        open={openValue}
-      />
+      <div className="filters">
+        {validDateEnd && validDateStart && (
+          <BigButton
+            onClick={() => {
+              foundPhotos.searchDateEnd = null
+              foundPhotos.searchDateStart = null
+              catalogues.getTestImages(null, queryParams)
+            }}
+            className="filters__btn"
+          >
+            Сбросить дату
+          </BigButton>
+        )}
+        {(validDateEnd || validDateStart) && (
+          <div>
+            {validDateStart && (
+              <p className="filters__date">
+                Дата от:{' '}
+                <span>
+                  {dateFormatter(
+                    foundPhotos.searchDateStart
+                  )}
+                </span>
+              </p>
+            )}
+            {validDateEnd && (
+              <p className="filters__date">
+                Дата до:{' '}
+                <span>
+                  {dateFormatter(foundPhotos.searchDateEnd)}
+                </span>
+              </p>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   )
 })
