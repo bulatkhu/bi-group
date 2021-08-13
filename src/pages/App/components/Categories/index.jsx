@@ -1,52 +1,29 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import FormPhoto from '../../../../components/form/FormPhoto'
 import { view } from '@risingstack/react-easy-state'
-import catalogPreview from '../../../../store/modules/catalogPreview'
 import './styles.scss'
-import CategoryItem from './CategoryItem'
+import classes from './categories.module.scss'
+import CustomSwitcher from '../../../../components/elements/Switcher'
+import VideoCatalog from './VideoCatalog'
+import PhotoCatalog from './PhotoCatalog'
 
 const Categories = view(() => {
-  useEffect(() => {
-    catalogPreview.getCatalogPreview()
-  }, [])
+  const [showMovies, setShowMovies] = useState(false)
 
   return (
     <main className="photos">
       <div className="photos__searchPhotos">
         <FormPhoto />
       </div>
+      <div className={classes.switcherWrap}>
+        <CustomSwitcher
+          label="Показать только видео"
+          setShow={setShowMovies}
+          value={showMovies}
+        />
+      </div>
       <div className="photos__main photosMain">
-        {catalogPreview.catalog[1] ? (
-          <p className="error">
-            {catalogPreview.catalog[1]}
-          </p>
-        ) : catalogPreview.catalog[0] ? (
-          <div className="categories">
-            {catalogPreview.catalog[0].map(
-              ({ tags, image_url, name }, index) => {
-                const queryTags = tags
-                  .map(({ pk }) => 'tags=' + pk)
-                  .join('&')
-
-                return (
-                  <CategoryItem
-                    key={index}
-                    queryTags={queryTags}
-                    img={image_url}
-                    name={name}
-                    tags={tags}
-                  />
-                )
-              }
-            )}
-          </div>
-        ) : (
-          <p>
-            {catalogPreview.loading
-              ? 'Загрузка'
-              : 'Группы фотографий не найденны'}
-          </p>
-        )}
+        {showMovies ? <VideoCatalog /> : <PhotoCatalog />}
       </div>
     </main>
   )
