@@ -1,0 +1,49 @@
+.downloadBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+
+  &__label {
+    text-decoration: underline;
+  }
+}
+
+.smallBtn {
+  padding: 10px;
+  width: auto;
+}
+
+.photoWrapper {
+  position: relative;
+}
+
+.selectBtn {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+
+  width: 40px;
+  background: transparent;
+  height: 40px;
+  border-radius: 50px;
+
+  border: 4px solid #124f8c;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__selected {
+    background: #fff;
+  }
+}
+
+.checkMark {
+  &__selected path {
+    fill: #124f8c;
+  }
+}

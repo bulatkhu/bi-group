@@ -3,7 +3,7 @@ import classes from './styles.module.scss'
 import clsx from 'clsx'
 
 const CustomImageFallback = React.forwardRef(
-  ({ className, alt = Date.now(), src, ...rest }, ref) => {
+  ({ className, alt = Date.now(), src, onLoad, onError, ...rest }, ref) => {
     const [isFailed, setIsFailed] = useState(false)
 
     return (
@@ -12,26 +12,28 @@ const CustomImageFallback = React.forwardRef(
           <img
             data-role="image-fallback-catcher"
             ref={ref}
-            onLoad={() => setIsFailed(false)}
-            onError={() => setIsFailed(true)}
+            onLoad={(e) => {
+              setIsFailed(false)
+              if (typeof onLoad === 'function') {
+                onLoad(e)
+              }
+            }}
+            onError={(e) => {
+              setIsFailed(true)
+              if (typeof onError === 'function') {
+                onError(e)
+              }
+            }}
             className={clsx(classes.root, className)}
             src={src}
             alt={alt}
             {...rest}
           />
         ) : (
-          <p
-            ref={ref}
-            className={clsx(classes.fallback, className)}
-          >
-            <span className={classes.fallback__label}>
-              Фото не найденно
-            </span>
+          <p ref={ref} className={clsx(classes.fallback, className)}>
+            <span className={classes.fallback__label}>Фото не найденно</span>
             <span>
-              Проверьте путь фото:{' '}
-              <span className={classes.fallback__path}>
-                {src}
-              </span>
+              Проверьте путь фото: <span className={classes.fallback__path}>{src}</span>
             </span>
           </p>
         )}

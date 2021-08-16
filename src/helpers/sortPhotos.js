@@ -64,7 +64,7 @@ const sortPhotos = (photos) => {
     })
   } catch (e) {
     console.log('err', e)
-    return {}
+    return []
   }
 }
 
