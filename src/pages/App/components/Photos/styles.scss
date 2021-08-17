@@ -69,12 +69,8 @@
   }
 
   &__masonry {
-    //display: grid;
-    //grid-template-columns: 1fr 1fr 1fr 1fr;
-    //column-gap: 15px;
-
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     justify-content: center;
 

@@ -11,14 +11,16 @@ import classes from './groups.module.scss'
 import clsx from 'clsx'
 import { IconCheckMark } from '../../../../../../components/Icons'
 import downloadImage from '../../../../../../helpers/downloadImage'
+import Controls from './components/Controls'
 
 const downloadImages = (images) =>
   images.forEach(([img, name]) => downloadImage(img, name))
 
 const Groups = view(() => {
   const hasPhotos = catalogues.photos.length
-
   const [selected, setSelected] = useState([])
+
+  const [columns, setColumns] = useState(3)
 
   const makePhotos = () => {
     if (hasPhotos) {
@@ -43,6 +45,7 @@ const Groups = view(() => {
               </div>
             </UsePortal>
           )}
+          <Controls columns={columns} setColumns={setColumns} />
           {sortedPhotos.map(({ year, photos: photosByTags }, index) => {
             return (
               <div key={index}>
@@ -59,7 +62,10 @@ const Groups = view(() => {
                             <span>{photoTag === 'noTag' ? 'Без тега' : photoTag}</span>
                           </span>
                         </div>
-                        <div className="photosMain__masonry">
+                        <div
+                          className="photosMain__masonry"
+                          style={{ gridTemplateColumns: '1fr '.repeat(columns) }}
+                        >
                           {photos.map((photo, index) => {
                             const candidateURL =
                               photo.images[0] || photo.images[1] || photo.thumbnail

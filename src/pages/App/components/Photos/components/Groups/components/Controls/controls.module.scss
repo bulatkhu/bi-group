@@ -1,0 +1,48 @@
+.controls {
+  position: sticky;
+  top: 0;
+  left: 100%;
+
+  display: inline-block;
+
+  z-index: 1;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 10px;
+
+
+  border: 2px solid #124f8c;
+  color: #124f8c;
+}
+
+.label {
+  margin-bottom: 10px;
+}
+
+.btns {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  font-size: 15px;
+  display: flex;
+  padding-bottom: 5px;
+
+  &__active {
+    text-decoration: underline;
+    border-bottom: 1px solid #124f8c;
+  }
+}
+
+.col {
+  height: 10px;
+  width: 5px;
+  background-color: #124f8c;
+
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+}
