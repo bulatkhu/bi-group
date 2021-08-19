@@ -242,9 +242,11 @@
     all: unset;
     margin: 10px;
     cursor: pointer;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+    padding: 5px;
+    //width: 10px;
+    //height: 10px;
+    border-radius: 5px;
+    color: #fff;
     background-color: var(--grey-light);
     transition: all 0.3s;
 

@@ -3,6 +3,7 @@ import ResizeImage from './ResizeImage'
 import Loader from '../../../../../components/elements/Loader'
 import { useParams } from 'react-router-dom'
 import downloadImage from '../../../../../helpers/downloadImage'
+import clsx from 'clsx'
 
 const PhotoSlider = ({ catalog }) => {
   const params = useParams()
@@ -50,14 +51,16 @@ const PhotoSlider = ({ catalog }) => {
       >
         Скачать
       </a>
-      <div className="photo-slider">
+      <div className="photo-slider ">
         {allImages.length > 1 &&
           allImages.map((item, index) => (
             <button
               key={index}
               onClick={() => setSlide(index)}
-              className={['photo-slider__dot', slide === index && 'active'].join(' ')}
-            />
+              className={clsx('photo-slider__dot', slide === index && 'active')}
+            >
+              {index === 0 ? 'Web' : 'Print'}
+            </button>
           ))}
       </div>
       {loading && <Loader small>Загрузка...</Loader>}

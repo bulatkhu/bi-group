@@ -26,9 +26,7 @@ const Photos = view(() => {
         <FormPhoto />
       </div>
       <div className="photos__main photosMain">
-        <h1 className="photosMain__title">
-          Галерея фотографий
-        </h1>
+        <h1 className="photosMain__title">Галерея фотографии</h1>
         {!catalogues.catalogLoaded ? (
           <Loader />
         ) : (
