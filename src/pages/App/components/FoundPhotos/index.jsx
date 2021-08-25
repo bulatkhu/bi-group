@@ -23,17 +23,13 @@ const FoundPhotos = view(() => {
         <FormPhoto />
       </div>
       <div className="photos__main photosMain">
-        <h1 className="photosMain__title">
-          Найденные фотографий
-        </h1>
+        <h1 className="photosMain__title">Найденные фотографии</h1>
 
         <div style={{ height: 10 }} />
         {foundPhotos.searching ? (
           <Loader
             small
-            text={`Прогресс поиска: ${(
-              foundPhotos.searchProgress * 100
-            ).toFixed(2)}%`}
+            text={`Прогресс поиска: ${(foundPhotos.searchProgress * 100).toFixed(2)}%`}
           />
         ) : (
           <Groups />
